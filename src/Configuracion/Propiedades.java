@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Thread.sleep;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -56,6 +57,16 @@ public class Propiedades {
     static String ID;
     static String DIRECCION;
     static String TELEFONO;
+    static String BK;
+
+    public static String getBK() {
+        return BK;
+    }
+
+    public static void setBK(String BK) {
+        Propiedades.BK = BK;
+    }
+    
 
     public static String getDIRECCION() {
         return DIRECCION;
@@ -140,6 +151,14 @@ public class Propiedades {
     public static void CargarPropiedades() throws ParseException{
         File archivo = new File ("Configuracion\\bbsGestion.properties");
          if(archivo.exists()){
+            try {
+                Process p=Runtime.getRuntime().exec("c:/xampp/xampp_start.exe");
+                sleep(2000);
+            } catch (IOException ex) {
+                Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+            }
          FileReader fr = null;
             try {
                 fr = new FileReader (archivo);
@@ -202,6 +221,9 @@ public class Propiedades {
                         case 19:
                             TELEFONO=linea.substring(9);
                             break;
+                        case 20:
+                            BK=linea.substring(3);
+                            break;
                         default:
                             System.out.println(linea);
                             break;
@@ -211,6 +233,24 @@ public class Propiedades {
                     System.out.println(renglon+" // "+linea);
                     // if(tra.guardarRegistro(linea));
       }
+                Transaccionable tra=new ConeccionInstalacion();
+                String sql="select * from clientes where id='"+ID+"'";
+             String sentencia = null;
+             ResultSet rs=tra.leerConjuntoDeRegistros(sql);
+                try {
+                    while(rs.next()){
+                        VERIF=rs.getString("verificacion");
+                        sentencia="aa";
+                    }
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+                    if(sentencia !=null){
+                        
+                    }else{
+                        JOptionPane.showMessageDialog(null,"NO SE HA PODIDO ESTABLECER CONEXION CON INTERNET, POR FAVOR VERIFIQUE DICHA CONEXION");
+                    }
+                }
                 Date fecha=Numeros.ConvertirStringEnDate(VERIF);
                 DecimalFormat fr1=new DecimalFormat("00");
                 Calendar c1=Calendar.getInstance();
@@ -307,6 +347,8 @@ public class Propiedades {
                     sentencia="DIRECCION="+rs.getString("direccion");
                     lst.add(sentencia);
                     sentencia="TELEFONO="+rs.getString("telefono");
+                    lst.add(sentencia);
+                    sentencia="BK="+rs.getString("bk");
                     lst.add(sentencia);
                     
                 }

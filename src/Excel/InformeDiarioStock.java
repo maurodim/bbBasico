@@ -6,6 +6,7 @@
 
 package Excel;
 
+import Configuracion.Propiedades;
 import interfaceGraficas.Inicio;
 import interfaces.Transaccionable;
 import java.io.FileNotFoundException;
@@ -353,10 +354,11 @@ public class InformeDiarioStock {
                 elFichero.close();
                 Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "+ruta);
                 Mail mail=new Mail();
+                String mailRecepcion=Propiedades.getCORREOCIERREDECAJA();
                 mail.setDetalleListado(nombree);
                 mail.setDireccionFile(ruta);
                 mail.setAsunto("Informe de cierre de caja "+Inicio.fechaDia+" Sucursal: PocoPrecio 1 ");
-                mail.enviarMailRepartoCargaCompleta();
+                mail.enviarMailRepartoCargaCompleta(mailRecepcion);
             } catch (IOException ex) {
                 Logger.getLogger(InformeMensual.class.getName()).log(Level.SEVERE, null, ex);
             } catch (MessagingException ex) {

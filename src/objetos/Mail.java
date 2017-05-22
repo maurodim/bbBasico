@@ -54,12 +54,12 @@ public class Mail {
         sesion=Session.getDefaultInstance(propiedades);
         
     }
-    public void enviarMailRepartoCargaCompleta() throws MessagingException{
+    public void enviarMailRepartoCargaCompleta(String direccion) throws MessagingException{
         init();
         try{
             MimeMessage mensaje=new MimeMessage(sesion);
             mensaje.setFrom(new InternetAddress((String)propiedades.get("mail.smtp.mail.sender")));
-            mensaje.addRecipient(Message.RecipientType.TO,new InternetAddress(Propiedades.getCORREOCIERREDECAJA()));
+            mensaje.addRecipient(Message.RecipientType.TO,new InternetAddress(direccion));
             mensaje.addRecipient(Message.RecipientType.CC,new InternetAddress(Propiedades.getCORREOCC()));
             mensaje.addRecipient(Message.RecipientType.BCC,new InternetAddress(Propiedades.getCORREOCCC()));
             mensaje.setSubject(asunto);

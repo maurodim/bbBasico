@@ -46,9 +46,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import objetos.Articulos;
+import objetos.BkUpRemoto;
 import objetos.GastosF;
 
 /**
@@ -82,6 +84,8 @@ public class Inicio extends javax.swing.JFrame {
         //Articulos.CargarMap();
         //if(coneccionRemota){
         //Articulos.CargarMap();
+        
+        
         Inicio.coneccionRemota=false;
         if(Inicio.coneccionRemota){
             Proveedores.cargarListadoProv1();
@@ -131,6 +135,7 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         Image icon=new ImageIcon(getClass().getResource("/imagen/icono.png")).getImage();
         this.setIconImage(icon);
+        
         
  
         //permisos(nivel);
@@ -203,6 +208,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem22 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem23 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISITEMA DE GESTION BAMBU SOFTWARE");
@@ -227,8 +233,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenu1.setText("Administracion");
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem8.setText("Rubros");
-        jMenuItem8.setEnabled(false);
+        jMenuItem8.setText("Administrar Rubros");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
@@ -276,7 +281,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem14);
 
-        jMenuItem21.setText("Informes");
+        jMenuItem21.setText("Administrar Informes");
         jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem21ActionPerformed(evt);
@@ -477,6 +482,19 @@ public class Inicio extends javax.swing.JFrame {
         jMenu8.add(jMenuItem23);
 
         jMenuBar1.add(jMenu8);
+
+        jMenu9.setText("Acerca de..");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu9MouseClicked(evt);
+            }
+        });
+        jMenu9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu9ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);
 
@@ -736,9 +754,23 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem25ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        //Backapear bb=new BackUp();
+        Backapear bb=new BackUp();
+        bb.GenerarArchivos();
+        
         //System.out.println(bb.GenerarArchivos());
     }//GEN-LAST:event_formWindowClosing
+
+    private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
+        
+    }//GEN-LAST:event_jMenu9ActionPerformed
+
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
+        Presentacion prese=new Presentacion();
+        jDesktopPane1.add(prese);
+        //prese.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        prese.setVisible(true);
+        prese.toFront();
+    }//GEN-LAST:event_jMenu9MouseClicked
 
     /**
      * @param args the command line arguments
@@ -805,6 +837,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;

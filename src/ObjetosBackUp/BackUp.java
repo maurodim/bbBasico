@@ -5,6 +5,8 @@
  */
 package ObjetosBackUp;
 
+import Configuracion.Propiedades;
+import static interfaceGraficas.Inicio.fechaDia;
 import interfaces.Transaccionable;
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +24,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import objetos.BkUpRemoto;
 import objetos.Conecciones;
 
 /**
@@ -714,9 +717,10 @@ public class BackUp implements Backapear{
 
     @Override
     public String GenerarArchivos() {
-        String archivoDestino="SubIva/bkPocoPrecio.sql";
+        String archivoDestino="Configuracion/"+Propiedades.getID()+"_bbgestion.sql";
+        String nombreASubir=Propiedades.getID()+"_bbgestion.sql";
         try {
-            Process p=Runtime.getRuntime().exec("C:/xampp/mysql/bin/mysqldump -h localhost -u pocoprecio -p  pocoprecio2");
+            Process p=Runtime.getRuntime().exec("C:/xampp/mysql/bin/mysqldump -h localhost -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE());
             InputStream is=p.getInputStream();
             FileOutputStream fos=new FileOutputStream(archivoDestino);
             byte[] buffer=new byte[1000];
@@ -726,6 +730,13 @@ public class BackUp implements Backapear{
                 leido=is.read(buffer);
             }
             fos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        File fichero=new File(archivoDestino);
+        BkUpRemoto bk=new BkUpRemoto();
+        try {
+            bk.subir("bambusoft.com.ar/ArchivosGestion/bk", "bambumau","bambuSf",nombreASubir,fichero);
         } catch (IOException ex) {
             Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
         }

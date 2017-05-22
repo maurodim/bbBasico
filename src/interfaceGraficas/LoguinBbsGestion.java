@@ -141,6 +141,7 @@ public class LoguinBbsGestion extends javax.swing.JFrame {
         
         //in.pack();
         this.dispose();
+        
         }else{
             JOptionPane.showMessageDialog(this,"Usuario o Contraseña erróneos");
         }

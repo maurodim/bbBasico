@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 import objetos.Articulos;
 
 /**
@@ -210,19 +211,36 @@ public class Combos extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 private void cargarLista(ArrayList lista){
-    DefaultListModel modelo=new DefaultListModel();
+    DefaultTableModel modelo=new DefaultTableModel();
     Iterator il=lista.listIterator();
     Articulos art=new Articulos();
+    modelo.addColumn("CODIGO");
+    modelo.addColumn("BARRA");
+    modelo.addColumn("DESCRIPCION");
+    modelo.addColumn("STOCK");
+    
+    modelo.addColumn("COSTO");
+    modelo.addColumn("P. VENTA");
+    //modelArticulos.addColumn("SERVICIO");
+        Object[] fila=new Object[6];
+
     while(il.hasNext()){
-        art=(Articulos)il.next();
-        //System.out.println("DESCRIPCION "+art.getDescripcionArticulo());
-        modelo.addElement(art.getCodigoAsignado()+" "+art.getDescripcionArticulo());
+        art=(Articulos) il.next();
+        fila[0]=art.getCodigoAsignado();
+        fila[1]=art.getCodigoDeBarra();
+        fila[2]=art.getDescripcionArticulo();
+        fila[3]=art.getStockActual();
+        
+        fila[4]=art.getPrecioDeCosto();
+        fila[5]=art.getPrecioUnitarioNeto();
+        //fila[6]=articulos.getPrecioServicio();
+        modelo.addRow(fila);
     }
     ListadoDeArticulos1 listadoDeArt=new ListadoDeArticulos1();
-    listadoDeArt.jList1.setModel(modelo);
+    listadoDeArt.jTable1.setModel(modelo);
     listadoDeArt.setVisible(true);
-    listadoDeArt.jList1.requestFocus();
-    int posicion=listadoDeArt.jList1.getSelectedIndex();
+    listadoDeArt.jTable1.requestFocus();
+    int posicion=listadoDeArt.jTable1.getSelectedRow();
     articulo=(Articulos)lista.get(posicion);
     //System.out.println(" codigo elegido "+articulo.getCodigoAsignado());
         
