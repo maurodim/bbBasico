@@ -58,10 +58,11 @@ public class Mail {
         init();
         try{
             MimeMessage mensaje=new MimeMessage(sesion);
+            System.out.println("MAIL DESTINO: "+direccion);
             mensaje.setFrom(new InternetAddress((String)propiedades.get("mail.smtp.mail.sender")));
             mensaje.addRecipient(Message.RecipientType.TO,new InternetAddress(direccion));
-            mensaje.addRecipient(Message.RecipientType.CC,new InternetAddress(Propiedades.getCORREOCC()));
-            mensaje.addRecipient(Message.RecipientType.BCC,new InternetAddress(Propiedades.getCORREOCCC()));
+            //mensaje.addRecipient(Message.RecipientType.CC,new InternetAddress(Propiedades.getCORREOCC()));
+            //mensaje.addRecipient(Message.RecipientType.BCC,new InternetAddress(Propiedades.getCORREOCCC()));
             mensaje.setSubject(asunto);
             BodyPart texto=new MimeBodyPart();
             texto.setText("INFORME GENERADO POR CIERRE DE CAJA   \n Saludos");

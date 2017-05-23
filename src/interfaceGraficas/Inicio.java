@@ -21,6 +21,7 @@ import Sucursales.ListasDePrecios;
 import Sucursales.Sucursales;
 import Sucursales.Usuarios;
 import Clientes.Objetos.ClientesTango;
+import Configuracion.Propiedades;
 import facturacion.pantallas.IngresoDePedidos;
 import facturacion.pantallas.IngresoNtaCred;
 import interfacesPrograma.Cajeables;
@@ -754,8 +755,11 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem25ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Backapear bb=new BackUp();
-        bb.GenerarArchivos();
+        
+        if(Propiedades.getBK().equals("1")){
+            Backapear bb=new BackUp();
+            System.out.println(bb.GenerarArchivos());
+        }
         
         //System.out.println(bb.GenerarArchivos());
     }//GEN-LAST:event_formWindowClosing

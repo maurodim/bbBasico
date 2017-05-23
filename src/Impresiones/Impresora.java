@@ -141,8 +141,9 @@ public class Impresora {
         String hrs=hora+","+minuto+":"+segundo;
         // formulario izquierdo
         
-        pagina = pj.getGraphics();
+        
         try{
+            pagina = pj.getGraphics();
         pagina.setFont(fuente7);
         pagina.drawString("CIERRE DE CAJA ", 150,10);
         pagina.setFont(fuente3);

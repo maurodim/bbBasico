@@ -8,6 +8,8 @@ import Actualizaciones.Cierre;
 import Conversores.Numeros;
 import Excel.InformeDiarioStock;
 import Impresiones.Impresora;
+import ObjetosBackUp.BackUp;
+import ObjetosBackUp.Backapear;
 import Sucursales.Cajas;
 import interfacesPrograma.Cajeables;
 import java.awt.event.KeyEvent;
@@ -429,7 +431,7 @@ public class ArqueoDeCaja extends javax.swing.JInternalFrame {
         caj.ArquearCaja(Inicio.caja);
         Impresora impresion=new Impresora();
         try{
-        impresion.ImprimirCierreDeCaja(Cajas.getListadoCajas());
+            impresion.ImprimirCierreDeCaja(Cajas.getListadoCajas());
         } catch (java.lang.NullPointerException ex) {
             Logger.getLogger(ArqueoDeCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -462,6 +464,7 @@ public class ArqueoDeCaja extends javax.swing.JInternalFrame {
         } catch (IOException ex) {
             Logger.getLogger(ArqueoDeCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         System.exit(1);
         }
         

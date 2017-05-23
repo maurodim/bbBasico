@@ -18,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -717,10 +718,39 @@ public class BackUp implements Backapear{
 
     @Override
     public String GenerarArchivos() {
-        String archivoDestino="Configuracion/"+Propiedades.getID()+"_bbgestion.sql";
+        String path="Configuracion/bbgestion.sql";
+        String archivoDestino="Configuracion/bbgestion.sql";
         String nombreASubir=Propiedades.getID()+"_bbgestion.sql";
+        String dumpCommand = "C:/xampp/mysql/bin/mysqldump bbgestion -h localhost -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE();
+        Runtime rt = Runtime.getRuntime();
+        File test=new File(path);
+        PrintStream ps;
+
+        try{
+        Process child = rt.exec(dumpCommand);
+        ps=new PrintStream(test);
+        InputStream in = child.getInputStream();
+        int ch;
+        while ((ch = in.read()) != -1) {
+        ps.write(ch);
+        System.out.write(ch);  //to view it by console
+        }
+
+        InputStream err = child.getErrorStream();
+        while ((ch = err.read()) != -1) {
+        System.out.write(ch);
+        }
+        }catch(Exception exc) {
+        exc.printStackTrace();
+        }
+        
+        /*
+        String archivoDestino="Configuracion/bbgestion.sql";
+        String nombreASubir=Propiedades.getID()+"_bbgestion.sql";
+        String comando="C:/xampp/mysql/bin/mysqldump -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE()+"  bbgestion";
+        System.out.println(comando);
         try {
-            Process p=Runtime.getRuntime().exec("C:/xampp/mysql/bin/mysqldump -h localhost -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE());
+            Process p=Runtime.getRuntime().exec(comando);
             InputStream is=p.getInputStream();
             FileOutputStream fos=new FileOutputStream(archivoDestino);
             byte[] buffer=new byte[1000];
@@ -733,10 +763,11 @@ public class BackUp implements Backapear{
         } catch (IOException ex) {
             Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
         }
+                */
         File fichero=new File(archivoDestino);
         BkUpRemoto bk=new BkUpRemoto();
         try {
-            bk.subir("bambusoft.com.ar/ArchivosGestion/bk", "bambumau","bambuSf",nombreASubir,fichero);
+            bk.subir(archivoDestino,nombreASubir);
         } catch (IOException ex) {
             Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -756,8 +787,9 @@ public class BackUp implements Backapear{
     @Override
     public Boolean RecuperarArchivos(String archivo, String base) {
         Boolean veridi=false;
+        archivo="Configuracion/bbgestion.sql";
         try {
-            Process p=Runtime.getRuntime().exec("c:/xampp/mysql/bin/mysql -u cam -paaa001B cam");
+            Process p=Runtime.getRuntime().exec("c:/xampp/mysql/bin/mysql -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE()+" "+Propiedades.getBD());
             OutputStream os=p.getOutputStream();
             FileInputStream fis=new FileInputStream(archivo);
             byte[] buffer=new byte[1000];

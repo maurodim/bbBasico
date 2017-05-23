@@ -59,10 +59,11 @@ public class BkDeConeccion implements Backpeable{
         Boolean verif=false;
     public static Boolean guardarSentencias(String sql){
         Boolean verif=false;
+        /*
         Transaccionable tra=new Conecciones();
         System.out.println(sql);
             verif=tra.guardarRegistro(sql);
-        
+        */
         return verif;
     }
     public synchronized Boolean procesosDeCierre(){
@@ -73,7 +74,7 @@ public class BkDeConeccion implements Backpeable{
         Boolean ver4=false;
         Boolean ver5=false;
         Sentencias sentencia;
-        
+        /*
         String sql="select * from movimientosarticulos where estado is null";
         //String sentencia="";
         ResultSet rs=tt.leerConjuntoDeRegistros(sql);
@@ -209,7 +210,7 @@ public class BkDeConeccion implements Backpeable{
             Logger.getLogger(BkDeConeccion.class.getName()).log(Level.SEVERE, null, ex);
         
         }
-        
+        */
         
         return ver;
     }

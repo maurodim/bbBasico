@@ -357,7 +357,7 @@ public class InformeDiarioStock {
                 String mailRecepcion=Propiedades.getCORREOCIERREDECAJA();
                 mail.setDetalleListado(nombree);
                 mail.setDireccionFile(ruta);
-                mail.setAsunto("Informe de cierre de caja "+Inicio.fechaDia+" Sucursal: PocoPrecio 1 ");
+                mail.setAsunto("Informe de cierre de caja "+Inicio.fechaDia+" Sucursal: "+Propiedades.getNOMBRECOMERCIO());
                 mail.enviarMailRepartoCargaCompleta(mailRecepcion);
             } catch (IOException ex) {
                 Logger.getLogger(InformeMensual.class.getName()).log(Level.SEVERE, null, ex);

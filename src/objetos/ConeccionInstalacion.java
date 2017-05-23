@@ -54,6 +54,8 @@ public class ConeccionInstalacion implements Transaccionable{
                 //st=dbConnection.createStatement();
             } catch (SQLException ex) {
                 Logger.getLogger(ConeccionInstalacion.class.getName()).log(Level.SEVERE, null, ex);
+                //JOptionPane.showMessageDialog(null,"NO SE HA PODIDO ESTABLECER CONEXION CON INTERNET, POR FAVOR VERIFIQUE DICHA CONEXION");
+                con=null;
             }
 
         
@@ -75,7 +77,7 @@ public class ConeccionInstalacion implements Transaccionable{
             FileWriter fichero=null;
             PrintWriter pw=null;
             try {
-                fichero = new FileWriter("C:\\Gestion\\"+Inicio.fechaDia+" - erroresDeConeccion.txt",true);
+                fichero = new FileWriter("Gestion\\"+Inicio.fechaDia+" - erroresDeConeccion.txt",true);
                 pw=new PrintWriter(fichero);
                 pw.println(sql);
             } catch (IOException ex1) {

@@ -26,8 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -148,158 +150,118 @@ public class Propiedades {
     }
     
     
-    public static void CargarPropiedades() throws ParseException{
+    public static void CargarPropiedades() throws ParseException, IOException{
         File archivo = new File ("Configuracion\\bbsGestion.properties");
+        Properties p=new Properties();
          if(archivo.exists()){
             try {
-                Process p=Runtime.getRuntime().exec("c:/xampp/xampp_start.exe");
+                Process px=Runtime.getRuntime().exec("c:/xampp/xampp_start.exe");
                 sleep(2000);
             } catch (IOException ex) {
                 Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
             }
-         FileReader fr = null;
-            try {
-                fr = new FileReader (archivo);
-                BufferedReader br = new BufferedReader(fr);
+         
+        int verificado=0;
+        
+            p.load(new FileReader(archivo));
+            Enumeration<Object> keys = p.keys();
+
+            while (keys.hasMoreElements()){
+               Object key = keys.nextElement();
+               System.out.println(key + " = "+ p.get(key));
+            }   
+         
+            
+         //FileReader fr = null;
+            
+                //fr = new FileReader (archivo);
+                //BufferedReader br = new BufferedReader(fr);
                 // Lectura del fichero
                 String linea;
                 int renglon=0;
                 //Transaccionable tra=new Conecciones();
-                while((linea=br.readLine())!=null){
+                //while((linea=br.readLine())!=null){
                     
                     
-                    renglon++;
-                    switch (renglon){
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                        case 5:
-                            break;
-                        case 6:
-                            CREADA=linea.substring(7);
-                            break;
-                        case 7:
-                            ARCHIVOBK=linea.substring(10);
-                            break;
-                        case 9:
-                            NOMBRECOMERCIO=linea.substring(15);
-                            break;
-                        case 10:
-                            LOGO=linea.substring(5);
-                            break;
-                        case 11:
-                            IMAGEN=linea.substring(7);
-                            break;
-                        case 12:
-                            VERIF=linea.substring(6);
-                            break;
-                        case 13:
-                            CORREOCIERREDECAJA=linea.substring(5);
-                            break;
-                        case 14:
-                            VALOR=linea.substring(6);
-                            break;
-                        case 15:
-                            ID=linea.substring(3);
-                            break;
-                        case 16:
-                            CORREOCC=linea.substring(7);
-                            break;
-                        case 17:
-                            CORREOCCC=linea.substring(8);
-                            break;
-                        case 18:
-                            DIRECCION=linea.substring(10);
-                            break;
-                        case 19:
-                            TELEFONO=linea.substring(9);
-                            break;
-                        case 20:
-                            BK=linea.substring(3);
-                            break;
-                        default:
-                            System.out.println(linea);
-                            break;
+                    
+                            CREADA=p.getProperty("CREADA");
+                        
+                            ARCHIVOBK=p.getProperty("ARCHIVOBK");
+                        
+                            NOMBRECOMERCIO=p.getProperty("NOMBRECOMERCIO");
+                        
+                            LOGO=p.getProperty("LOGO");
+                        
+                            IMAGEN=p.getProperty("IMAGEN");
+                        
+                            VERIF=p.getProperty("VERIF");
+                       
+                            CORREOCIERREDECAJA=p.getProperty("MAIL");
+                        
+                            VALOR=p.getProperty("VALOR");
+                        
+                            ID=p.getProperty("ID");
+                        
+                            CORREOCC=p.getProperty("MAILCC");
                             
-                    }
+                            CORREOCCC=p.getProperty("MAILCCO");
+                            
+                            DIRECCION=p.getProperty("DIRECCION");
+                            
+                            TELEFONO=p.getProperty("TELEFONO");
+                        
+                            BK=p.getProperty("BK");
+                        
                     
-                    System.out.println(renglon+" // "+linea);
+                    //System.out.println(renglon+" // "+linea);
                     // if(tra.guardarRegistro(linea));
-      }
-                Transaccionable tra=new ConeccionInstalacion();
-                String sql="select * from clientes where id='"+ID+"'";
-             String sentencia = null;
-             ResultSet rs=tra.leerConjuntoDeRegistros(sql);
-                try {
-                    while(rs.next()){
-                        VERIF=rs.getString("verificacion");
-                        sentencia="aa";
-                    }
-                    rs.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
-                    if(sentencia !=null){
-                        
-                    }else{
-                        JOptionPane.showMessageDialog(null,"NO SE HA PODIDO ESTABLECER CONEXION CON INTERNET, POR FAVOR VERIFIQUE DICHA CONEXION");
-                    }
-                }
-                Date fecha=Numeros.ConvertirStringEnDate(VERIF);
-                DecimalFormat fr1=new DecimalFormat("00");
-                Calendar c1=Calendar.getInstance();
-	Calendar c2=new GregorianCalendar();
-	String dia=Integer.toString(c2.get(Calendar.DAY_OF_MONTH));
-	String mes=Integer.toString(c2.get(Calendar.MONTH));
-	String ano=Integer.toString(c2.get(Calendar.YEAR));
-	
-        int da=Integer.parseInt(dia);
-        int me=Integer.parseInt(mes);
-        me++;
-        dia=fr1.format(da);
-        mes=fr1.format(me);
-        String fechaDia=ano+"-"+mes+"-"+dia;
-	//System.err.println(fechaDia);
-        //fecha="23/12/2011";
-        String fh=ano+"-"+mes+"-"+dia;
-        SimpleDateFormat ff=new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaVal = null;    
-        
-            fechaVal = Numeros.ConvertirStringEnDate(fh);
-            //fechaVal = ff.parse(fh);
-        
-               
-        if(fechaVal.after(fecha)){
-            System.exit(0);
-        }else{
-            //System.exit(0);
-        }
-        if(CREADA.equals("0")){
-                        
-                        //Transaccionable tra=new ConeccionInstalacion();
-                        
-                        
-                    }
-            
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-                    fr.close();
-                    //JOptionPane.showMessageDialog(null,"INICIANDO CONFIGURACION Y CREACION DE LA BASE DE DATOS");
-                } catch (IOException ex) {
-                    Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                   
                 
-            }
+                    int veer=ActualizarValores1();
+                    
+                    //JOptionPane.showMessageDialog(null,"NO SE HA PODIDO ESTABLECER CONEXION CON INTERNET, POR FAVOR VERIFIQUE DICHA CONEXION");
+                            
+                            Date fecha=Numeros.ConvertirStringEnDate(VERIF);
+                            DecimalFormat fr1=new DecimalFormat("00");
+                            Calendar c1=Calendar.getInstance();
+                            Calendar c2=new GregorianCalendar();
+                            String dia=Integer.toString(c2.get(Calendar.DAY_OF_MONTH));
+                            String mes=Integer.toString(c2.get(Calendar.MONTH));
+                            String ano=Integer.toString(c2.get(Calendar.YEAR));
+
+                            int da=Integer.parseInt(dia);
+                            int me=Integer.parseInt(mes);
+                            me++;
+                            dia=fr1.format(da);
+                            mes=fr1.format(me);
+                            String fechaDia=ano+"-"+mes+"-"+dia;
+                            //System.err.println(fechaDia);
+                            //fecha="23/12/2011";
+                            String fh=ano+"-"+mes+"-"+dia;
+                            SimpleDateFormat ff=new SimpleDateFormat("yyyy-MM-dd");
+                            Date fechaVal = null;    
+
+                                fechaVal = Numeros.ConvertirStringEnDate(fh);
+                                //fechaVal = ff.parse(fh);
+
+
+                            if(fechaVal.after(fecha)){
+                                System.exit(0);
+                            }else{
+                                //System.exit(0);
+                            }
+                            //if(CREADA.equals("0")){
+
+                                            //Transaccionable tra=new ConeccionInstalacion();
+
+
+                              //          }
+            
+            
+            
+            
         }else{
              String clave=JOptionPane.showInputDialog(null,"Ingrese la clave enviada en el mail para terminar con la isntalacion del producto por favor. Gracias");
              System.out.println("CLAVE INGRESADA: "+clave);
@@ -310,87 +272,63 @@ public class Propiedades {
              ArrayList lst=new ArrayList();
             try {
                 while(rs.next()){
-                    sentencia="#CONFIGURACION BD";
-                    lst.add(sentencia);
-                    sentencia="SERVER=localhost" ;
-                    lst.add(sentencia);
-                    sentencia="BD=bbgestion";
-                    lst.add(sentencia);
-                    sentencia="USUARIO=root";
-                    lst.add(sentencia);
-                    sentencia="CLAVE=";
-                    lst.add(sentencia);
-                    sentencia="CREADA=1";
-                    lst.add(sentencia);
-                    sentencia="ARCHIVOBK="+rs.getString("archivoBk");
-                    lst.add(sentencia);
-                    sentencia="#DATOS DEL USUARIO - PERSONALIZADOS";
-                    lst.add(sentencia);
-                    sentencia="NOMBRECOMERCIO="+rs.getString("nombre");
-                    lst.add(sentencia);
-                    sentencia="LOGO=null";
-                    lst.add(sentencia);
-                    sentencia="IMAGEN=null";
-                    lst.add(sentencia);
-                    sentencia="VERIF="+rs.getString("verificacion");
-                    lst.add(sentencia);
-                    sentencia="MAIL="+rs.getString("mail");
-                    lst.add(sentencia);
-                    sentencia="VALOR="+rs.getInt("valor");
-                    lst.add(sentencia);
-                    sentencia="ID="+rs.getInt("id");
-                    lst.add(sentencia);
-                    sentencia="MAILCC=";
-                    lst.add(sentencia);
-                    sentencia="MAILCCO=";
-                    lst.add(sentencia);
-                    sentencia="DIRECCION="+rs.getString("direccion");
-                    lst.add(sentencia);
-                    sentencia="TELEFONO="+rs.getString("telefono");
-                    lst.add(sentencia);
-                    sentencia="BK="+rs.getString("bk");
-                    lst.add(sentencia);
+                    p.setProperty("ARCHIVOBK", rs.getString("archivoBk"));
+                    p.setProperty("NOMBRECOMERCIO", rs.getString("nombre"));
+                    p.setProperty("LOGO", "");
+                    p.setProperty("IMAGEN", "");
+                    p.setProperty("VERIF", rs.getString("verificacion"));
+                    p.setProperty("MAIL", rs.getString("mail"));
+                    p.setProperty("VALOR", String.valueOf(rs.getInt("valor")));
+                    p.setProperty("ID", String.valueOf(rs.getInt("id")));
+                    p.setProperty("MAILCC","");
+                    p.setProperty("MAILCCO","");
+                    p.setProperty("DIRECCION", rs.getString("direccion"));
+                    p.setProperty("TELEFONO", rs.getString("telefono"));
+                    p.setProperty("BK", rs.getString("bk"));
                     
                 }
                 rs.close();
+                p.store(new FileWriter("Configuracion\\bbsGestion.properties"),"");
+                
             } catch (SQLException ex) {
                 Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
             }
-             FileWriter fichero=null;
-            PrintWriter pw=null;
-            try {
-                if(sentencia!=null){
-                fichero = new FileWriter("Configuracion\\bbsGestion.properties",true);
-                pw=new PrintWriter(fichero);
-                Iterator itL=lst.listIterator();
-                while(itL.hasNext()){
-                    
-                    sentencia=(String) itL.next();
-                    pw.println(sentencia);
-                }
+            
+                
+            
                 String usuario=JOptionPane.showInputDialog(null,"Ingrese el nombre de usuario que desea instalar en el sistema");
                 String claveU=JOptionPane.showInputDialog(null,"Ingrese la clave para el usuario generado por favor.\n Gracias");
                 sql="update usuarios set nombreusuario='"+usuario+"', clave='"+claveU+"' where numero=1";
                 Transaccionable tt=new Conecciones();
                 tt.guardarRegistro(sql);
-                }else{
-                    JOptionPane.showMessageDialog(null,"VERIFIQUE LA CONEXION A INTERNET, NO SE HA PODIDO ACTUALIZAR EL SISTEMA");
-                    System.exit(1);
-                }
-            } catch (IOException ex1) {
-                Logger.getLogger(Conecciones.class.getName()).log(Level.SEVERE, null, ex1);
-            }finally{
-              try {
-           // Nuevamente aprovechamos el finally para 
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero)
-              fichero.close();
-           } catch (Exception e2) {
-              e2.printStackTrace();
-           }
-             
-             //System.exit(1);
-         }
+                CREADA=p.getProperty("CREADA");
+                        
+                            ARCHIVOBK=p.getProperty("ARCHIVOBK");
+                        
+                            NOMBRECOMERCIO=p.getProperty("NOMBRECOMERCIO");
+                        
+                            LOGO=p.getProperty("LOGO");
+                        
+                            IMAGEN=p.getProperty("IMAGEN");
+                        
+                            VERIF=p.getProperty("VERIF");
+                       
+                            CORREOCIERREDECAJA=p.getProperty("MAIL");
+                        
+                            VALOR=p.getProperty("VALOR");
+                        
+                            ID=p.getProperty("ID");
+                        
+                            CORREOCC=p.getProperty("MAILCC");
+                            
+                            CORREOCCC=p.getProperty("MAILCCO");
+                            
+                            DIRECCION=p.getProperty("DIRECCION");
+                            
+                            TELEFONO=p.getProperty("TELEFONO");
+                        
+                            BK=p.getProperty("BK");
+            
          }
         //BD="siglox";
         
@@ -403,5 +341,91 @@ public class Propiedades {
         tra.guardarRegistro("create database "+BD);
         
         //return veridi;
+    }
+    /*
+    private static int ActualizarValores(){
+        int verificado=0;
+        String sentencia = null;
+        ArrayList lst=new ArrayList();
+        
+                        Transaccionable tra=new ConeccionInstalacion();
+                        
+                        String sql="select * from clientes where id='"+ID+"'";
+        try {             
+                     ResultSet rs=tra.leerConjuntoDeRegistros(sql);
+                     
+            
+                while(rs.next()){
+                    
+                    
+                }
+                rs.close();
+                verificado=1;
+                FileWriter fichero=null;
+                PrintWriter pw=null;
+            
+                if(sentencia!=null){
+                            try {
+                                fichero = new FileWriter("Configuracion\\bbsGestion.properties",true);
+                            } catch (IOException ex) {
+                                Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                pw=new PrintWriter(fichero);
+                Iterator itL=lst.listIterator();
+                while(itL.hasNext()){
+                    
+                    sentencia=(String) itL.next();
+                    pw.println(sentencia);
+                }
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+                
+            }finally{
+             
+                
+        
+                return verificado;
+            }
+    }
+    */
+    private static int ActualizarValores1(){
+        Properties p=new Properties();
+        int verificado=0;
+        try {
+            p.load(new FileReader("Configuracion\\bbsGestion.properties"));
+            Enumeration<Object> keys = p.keys();
+
+            while (keys.hasMoreElements()){
+               Object key = keys.nextElement();
+               System.out.println(key + " = "+ p.get(key));
+            }
+             Transaccionable tra=new ConeccionInstalacion();
+                        
+                        String sql="select * from clientes where id='"+ID+"'";
+        //try {             
+                     ResultSet rs=tra.leerConjuntoDeRegistros(sql);
+                     
+            
+                while(rs.next()){
+                    p.setProperty("VERIF",rs.getString("verificacion"));
+                    p.setProperty("BK",String.valueOf(rs.getInt("bk")));
+                    
+                }
+                rs.close();
+                p.store(new FileWriter("Configuracion\\bbsGestion.properties"),"");
+                verificado=1;
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            return verificado;
+        }
+        
     }
 }
