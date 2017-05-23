@@ -744,26 +744,6 @@ public class BackUp implements Backapear{
         exc.printStackTrace();
         }
         
-        /*
-        String archivoDestino="Configuracion/bbgestion.sql";
-        String nombreASubir=Propiedades.getID()+"_bbgestion.sql";
-        String comando="C:/xampp/mysql/bin/mysqldump -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE()+"  bbgestion";
-        System.out.println(comando);
-        try {
-            Process p=Runtime.getRuntime().exec(comando);
-            InputStream is=p.getInputStream();
-            FileOutputStream fos=new FileOutputStream(archivoDestino);
-            byte[] buffer=new byte[1000];
-            int leido=is.read(buffer);
-            while(leido > 0){
-                fos.write(buffer,0,leido);
-                leido=is.read(buffer);
-            }
-            fos.close();
-        } catch (IOException ex) {
-            Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                */
         File fichero=new File(archivoDestino);
         BkUpRemoto bk=new BkUpRemoto();
         try {
