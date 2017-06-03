@@ -156,9 +156,7 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         try {
-            if(coneccionRemota){
-                img = ImageIO.read(new URL("http://www.maurodi.net/imagenes/saynomore.jpg"));
-            }
+            img = ImageIO.read(new URL("http://www.bambusoft.com.ar/ArchivosGestion/imagenes/logoBambu.png"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -305,7 +303,6 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setText("Ingreso de Mercaderia");
-        jMenuItem6.setEnabled(false);
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);

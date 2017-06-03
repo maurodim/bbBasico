@@ -115,7 +115,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ingrese descripcion de articulo"/>
+            <Property name="text" type="java.lang.String" value="Ingrese descripcion de articulo y F1 para buscar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField1">
@@ -125,7 +125,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ingrese codigo de barra"/>
+            <Property name="text" type="java.lang.String" value="Ingrese codigo de barra y F1 para buscar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField2">

@@ -721,7 +721,7 @@ public class BackUp implements Backapear{
         String path="Configuracion/bbgestion.sql";
         String archivoDestino="Configuracion/bbgestion.sql";
         String nombreASubir=Propiedades.getID()+"_bbgestion.sql";
-        String dumpCommand = "C:/xampp/mysql/bin/mysqldump bbgestion -h localhost -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE();
+        String dumpCommand = "C:/Program Files (x86)/MySQL/MySQL Server 5.1/bin/mysqldump bbgestion -h localhost -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE();
         Runtime rt = Runtime.getRuntime();
         File test=new File(path);
         PrintStream ps;
@@ -743,7 +743,7 @@ public class BackUp implements Backapear{
         }catch(Exception exc) {
         exc.printStackTrace();
         }
-        
+        /*
         File fichero=new File(archivoDestino);
         BkUpRemoto bk=new BkUpRemoto();
         try {
@@ -751,6 +751,7 @@ public class BackUp implements Backapear{
         } catch (IOException ex) {
             Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
         }
+                */
         return archivoDestino;
     }
 
@@ -769,7 +770,7 @@ public class BackUp implements Backapear{
         Boolean veridi=false;
         archivo="Configuracion/bbgestion.sql";
         try {
-            Process p=Runtime.getRuntime().exec("c:/xampp/mysql/bin/mysql -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE()+" "+Propiedades.getBD());
+            Process p=Runtime.getRuntime().exec("C:/Program Files (x86)/MySQL/MySQL Server 5.1/bin/mysql -u "+Propiedades.getUSUARIO()+" -p"+Propiedades.getCLAVE()+" "+Propiedades.getBD());
             OutputStream os=p.getOutputStream();
             FileInputStream fis=new FileInputStream(archivo);
             byte[] buffer=new byte[1000];

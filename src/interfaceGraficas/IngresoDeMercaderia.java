@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import objetos.Articulos;
@@ -90,6 +91,23 @@ public class IngresoDeMercaderia extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Ingreso de Mercadería");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -103,32 +121,6 @@ public class IngresoDeMercaderia extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Seleccione Proveedor");
 
-        Proveedores proveedor=new Proveedores();
-        //listaProv=new ArrayList();
-        Personalizable per=new Proveedores();
-        listaProv=per.listar();
-        Iterator ilProv=listaProv.listIterator();
-        while(ilProv.hasNext()){
-            proveedor=(Proveedores)ilProv.next();
-            jComboBox1.addItem(proveedor.getNombre());
-        }
-
-        /*
-        Cobradores cob=new Cobradores();
-        Procesos pr=new Procesos();
-        ArrayList listaCob=new ArrayList();
-        //List comb=new List();
-        try{
-            listaCob=pr.listarCobradores();
-        }catch(Exception ex){
-            System.out.println("no se accedio al listado "+ex);
-        }
-        Iterator il=listaCob.listIterator();
-        while(il.hasNext()){
-            cob=(Cobradores)il.next();
-            jComboBox1.addItem(cob.getNombre());
-        }
-        */
         jComboBox1.setName("jProveedores");
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -672,6 +664,20 @@ public class IngresoDeMercaderia extends javax.swing.JInternalFrame {
         }
                 */
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        Personalizable per=new Proveedores();
+DefaultComboBoxModel modelo=new DefaultComboBoxModel();
+listaProv=per.listar();
+Iterator ilProv=listaProv.listIterator();
+while(ilProv.hasNext()){
+    proveedor=(Proveedores)ilProv.next();
+    modelo.addElement(proveedor.getNombre());
+    
+}
+this.jComboBox1.setModel(modelo);
+
+    }//GEN-LAST:event_formInternalFrameActivated
 private void agregarRenglonTabla(){
         MiModeloTablaFacturacion busC=new MiModeloTablaFacturacion();
         this.jTable1.removeAll();

@@ -15,6 +15,7 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
   <Events>
+    <EventHandler event="internalFrameActivated" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameActivated"/>
     <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentShown"/>
     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="formFocusGained"/>
   </Events>
@@ -198,7 +199,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Proveedores proveedor=new Proveedores();&#xa;//listaProv=new ArrayList();&#xa;Personalizable per=new Proveedores();&#xa;listaProv=per.listar();&#xa;Iterator ilProv=listaProv.listIterator();&#xa;while(ilProv.hasNext()){&#xa;    proveedor=(Proveedores)ilProv.next();&#xa;    jComboBox1.addItem(proveedor.getNombre());&#xa;}&#xa;&#xa;/*&#xa;Cobradores cob=new Cobradores();&#xa;        Procesos pr=new Procesos();&#xa;        ArrayList listaCob=new ArrayList();&#xa;        //List comb=new List();&#xa;        try{&#xa;            listaCob=pr.listarCobradores();&#xa;        }catch(Exception ex){&#xa;            System.out.println(&quot;no se accedio al listado &quot;+ex);&#xa;        }&#xa;        Iterator il=listaCob.listIterator();&#xa;        while(il.hasNext()){&#xa;            cob=(Cobradores)il.next();&#xa;            jComboBox1.addItem(cob.getNombre());&#xa;        }&#xa;        */ &#xa;jComboBox1.setName(&quot;jProveedores&quot;);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jComboBox1.setName(&quot;jProveedores&quot;);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox1">

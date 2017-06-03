@@ -74,7 +74,7 @@ public class ArticulosAbm extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Ingrese descripcion de articulo");
+        jLabel1.setText("Ingrese descripcion de articulo y F1 para buscar");
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -82,7 +82,7 @@ public class ArticulosAbm extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Ingrese codigo de barra");
+        jLabel2.setText("Ingrese codigo de barra y F1 para buscar");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
