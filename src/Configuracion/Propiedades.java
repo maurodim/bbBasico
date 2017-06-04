@@ -219,12 +219,13 @@ public class Propiedades {
                    
                 
                     int veer=ActualizarValores1();
-                    int bass=CrearBaseInicial();
+                    if(CREADA.equals("0")){
+                        int bass=CrearBaseInicial();
                         if(bass==1){
                             p.setProperty("CREADA", "1");
                             p.store(new FileWriter("Configuracion\\bbsGestion.properties"),"");
                         }
-                    
+                    }
                     //JOptionPane.showMessageDialog(null,"NO SE HA PODIDO ESTABLECER CONEXION CON INTERNET, POR FAVOR VERIFIQUE DICHA CONEXION");
                             
                             Date fecha=Numeros.ConvertirStringEnDate(VERIF);
@@ -251,7 +252,7 @@ public class Propiedades {
                                 //fechaVal = ff.parse(fh);
 
 
-                           if(fechaVal.after(fecha) && CREADA.equals("0")){
+                           if(fechaVal.after(fecha)){
             System.exit(0);
         }else{
             //System.exit(0);
@@ -336,6 +337,11 @@ public class Propiedades {
                             TELEFONO=p.getProperty("TELEFONO");
                         
                             BK=p.getProperty("BK");
+                        }else{
+                            p.setProperty("CREADA", "0");
+                            //p.setProperty("INSTALADA","1");
+                            p.store(new FileWriter("Configuracion\\bbsGestion.properties"),"");
+                            
                         }
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
