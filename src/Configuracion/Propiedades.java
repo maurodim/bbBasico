@@ -155,12 +155,7 @@ public class Propiedades {
         File archivo = new File ("Configuracion\\bbsGestion.properties");
         Properties p=new Properties();
          if(archivo.exists()){
-            try {
-                //Process px=Runtime.getRuntime().exec("c:/xampp/xampp_start.exe");
-                sleep(2000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
          
         int verificado=0;
         
@@ -253,10 +248,10 @@ public class Propiedades {
 
 
                            if(fechaVal.after(fecha)){
-            System.exit(0);
-        }else{
-            //System.exit(0);
-        }
+                                System.exit(0);
+                            }else{
+                                //System.exit(0);
+                            }
                             //if(CREADA.equals("0")){
 
                                             //Transaccionable tra=new ConeccionInstalacion();
