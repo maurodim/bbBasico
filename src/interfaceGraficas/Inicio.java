@@ -20,7 +20,7 @@ import Sucursales.Cajas;
 import Sucursales.ListasDePrecios;
 import Sucursales.Sucursales;
 import Sucursales.Usuarios;
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import Configuracion.Propiedades;
 import facturacion.pantallas.IngresoDePedidos;
 import facturacion.pantallas.IngresoNtaCred;
@@ -93,7 +93,7 @@ public class Inicio extends javax.swing.JFrame {
         }else{
             Proveedores.cargarListadoProv();
         }
-        ClientesTango.cargarMap();
+        Clientes.cargarMap();
         actualizacionesClientes=2;
         ListasDePrecios.cargarMap();
         //Cajas.BackapearCajas();

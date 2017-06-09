@@ -9,7 +9,7 @@ import Clientes.Pantallas.SeleccionDeClientes;
 import Conversores.Numeros;
 import Fiscal.EpsonTicket;
 import Impresiones.Impresora;
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 
 import interfaceGraficas.Inicio;
 import interfaces.Modificable;
@@ -48,7 +48,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
     /**
      * Creates new form IngresoDePedidos
      */
-    public static ClientesTango cliT;
+    public static Clientes cliT;
     private ArrayList detalleDelPedido=new ArrayList();
     private Articulos arti;
     private static ArrayList listadoDeBusqueda=new ArrayList();
@@ -60,7 +60,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
     
     public IngresoDePedidos() {
         //Articulos.CargarMap();
-        cliT=new ClientesTango("999999");
+        cliT=new Clientes("999999");
         //cliT=(ClientesTango)oob;
         //comp.setCliente(cliT);
         initComponents();
@@ -610,7 +610,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         this.jTable2.removeAll();
         listadoDeBusqueda.clear();
         cargarLista(listadoDeBusqueda);
-        cliT=new ClientesTango("999999");
+        cliT=new Clientes("999999");
         //this.jLabel6.setText(cliT.getRazonSocial());
         //this.jRadioButton2.setSelected(true);
         jLabel10.setText(cliT.getRazonSocial());
@@ -793,7 +793,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         this.jTable2.removeAll();
         listadoDeBusqueda.clear();
         cargarLista(listadoDeBusqueda);
-        cliT=new ClientesTango("999999");
+        cliT=new Clientes("999999");
         //this.jLabel6.setText(cliT.getRazonSocial());
         //this.jRadioButton2.setSelected(true);
         this.jTextField2.setText("");

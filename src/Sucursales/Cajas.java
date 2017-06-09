@@ -6,7 +6,7 @@ package Sucursales;
 
 import Actualizaciones.BkDeConeccion;
 import Conversores.Numeros;
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import interfaceGraficas.Inicio;
 import interfaceGraficas.ListadoDeArticulos;
 import interfaces.Transaccionable;
@@ -857,7 +857,7 @@ public class Cajas extends Sucursales implements Cajeables{
                System.out.println(sql);
                rs=tra.leerConjuntoDeRegistros(sql);
                Comprobantes comprobante=new Comprobantes();
-               ClientesTango cliente;
+               Clientes cliente;
                Articulos articulo;
                ArrayList art=new ArrayList();
                Facturar fact=new Articulos();
@@ -868,8 +868,8 @@ public class Cajas extends Sucursales implements Cajeables{
         try {
             while(rs.next()){
                 articulo=new Articulos();
-                Facturar fac=new ClientesTango();
-                cliente=(ClientesTango) fac.cargarPorCodigoAsignado(rs.getInt("numeroCliente"));
+                Facturar fac=new Clientes();
+                cliente=(Clientes) fac.cargarPorCodigoAsignado(rs.getInt("numeroCliente"));
                 comprobante.setCliente(cliente);
                 //comprobante.setFechaEmision(rs.getDate("fecha"));
                 reg++;

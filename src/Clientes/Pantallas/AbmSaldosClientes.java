@@ -6,7 +6,7 @@
 package Clientes.Pantallas;
 
 
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import Clientes.Objetos.MovimientosClientes;
 import Excel.InformesClientes;
 import Sucursales.Cajas;
@@ -28,12 +28,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AbmSaldosClientes extends javax.swing.JInternalFrame {
 
-    private ClientesTango cli;
+    private Clientes cli;
     private DefaultTableModel modelo;
     private MovimientosClientes moviC;
     private ArrayList listadoMov;
     
-    public AbmSaldosClientes(ClientesTango cliente) {
+    public AbmSaldosClientes(Clientes cliente) {
         initComponents();
         cli=cliente;
         listadoMov=new ArrayList();

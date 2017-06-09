@@ -6,7 +6,7 @@ package objetos;
 
 import Conversores.Numeros;
 import Impresiones.Impresora;
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import interfaceGraficas.Inicio;
 import interfaces.Transaccionable;
 import interfacesPrograma.Facturar;
@@ -36,7 +36,7 @@ public class Comprobantes implements Facturar{
     private String descripcion;
     private int destinatarioCondicion;
     private int descargaStock;
-    private ClientesTango cliente;
+    private Clientes cliente;
     private ArrayList listadoDeArticulos;
     private int tipoComprobante;
     private Date fechaEmision;
@@ -126,11 +126,11 @@ public class Comprobantes implements Facturar{
     }
     
 
-    public ClientesTango getCliente() {
+    public Clientes getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClientesTango cliente) {
+    public void setCliente(Clientes cliente) {
         this.cliente = cliente;
     }
 
@@ -660,12 +660,12 @@ public class Comprobantes implements Facturar{
         Transaccionable tra=new ConeccionLocal();
         String sql="select * from movimientoscaja where id="+comprobante.getId();
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
-        ClientesTango cliente;
+        Clientes cliente;
         try {
             while(rs.next()){
                 comprobante.setId(rs.getInt("id"));
                 comprobante.setUsuarioGenerador(rs.getInt("numeroUsuario"));
-                cliente=new ClientesTango(rs.getInt("idCliente"));
+                cliente=new Clientes(rs.getInt("idCliente"));
                 comprobante.setCliente(cliente);
                 comprobante.setIdSucursal(rs.getInt("numeroSucursal"));
                 comprobante.setNumero(rs.getInt("numeroComprobante"));

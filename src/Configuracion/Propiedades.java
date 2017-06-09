@@ -6,8 +6,11 @@
 package Configuracion;
 
 import Conversores.Numeros;
+import FacturaE.Facturas;
+import FacturaE.Instalable;
 import ObjetosBackUp.BackUp;
 import ObjetosBackUp.Backapear;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import interfaceGraficas.Inicio;
 import interfaces.Transaccionable;
 import java.io.BufferedReader;
@@ -61,6 +64,85 @@ public class Propiedades {
     static String DIRECCION;
     static String TELEFONO;
     static String BK;
+    static String ELECTRONICA;
+    static String FISCAL;
+    static String ACCESOS;
+    static String KEY;
+    static String CUIT;
+    static String INGBRUTOS;
+    static String INICIOACT;
+    static String PTO;
+    
+
+    public static String getPTO() {
+        return PTO;
+    }
+
+    public static void setPTO(String PTO) {
+        Propiedades.PTO = PTO;
+    }
+    
+
+    public static String getCUIT() {
+        return CUIT;
+    }
+
+    public static void setCUIT(String CUIT) {
+        Propiedades.CUIT = CUIT;
+    }
+
+    public static String getINGBRUTOS() {
+        return INGBRUTOS;
+    }
+
+    public static void setINGBRUTOS(String INGBRUTOS) {
+        Propiedades.INGBRUTOS = INGBRUTOS;
+    }
+
+    public static String getINICIOACT() {
+        return INICIOACT;
+    }
+
+    public static void setINICIOACT(String INICIOACT) {
+        Propiedades.INICIOACT = INICIOACT;
+    }
+    
+    
+
+    public static String getELECTRONICA() {
+        return ELECTRONICA;
+    }
+
+    public static void setELECTRONICA(String ELECTRONICA) {
+        Propiedades.ELECTRONICA = ELECTRONICA;
+    }
+
+    public static String getFISCAL() {
+        return FISCAL;
+    }
+
+    public static void setFISCAL(String FISCAL) {
+        Propiedades.FISCAL = FISCAL;
+    }
+
+    public static String getACCESOS() {
+        return ACCESOS;
+    }
+
+    public static void setACCESOS(String ACCESOS) {
+        Propiedades.ACCESOS = ACCESOS;
+    }
+
+
+    public static String getKEY() {
+        return KEY;
+    }
+
+    public static void setKEY(String KEY) {
+        Propiedades.KEY = KEY;
+    }
+    
+    
 
     public static String getBK() {
         return BK;
@@ -212,6 +294,15 @@ public class Propiedades {
                             TELEFONO=p.getProperty("TELEFONO");
                         
                             BK=p.getProperty("BK");
+                            FISCAL=p.getProperty("FISCAL");
+                            ELECTRONICA=p.getProperty("ELECTRONICA");
+                            KEY=p.getProperty("KEY");
+                            
+                            CUIT=p.getProperty("CUIT");
+                            INGBRUTOS=p.getProperty("INGBRUTOS");
+                            INICIOACT=p.getProperty("INICIOACT");
+                            PTO=p.getProperty("PTO");
+                            
                         
                     
                     //System.out.println(renglon+" // "+linea);
@@ -219,11 +310,13 @@ public class Propiedades {
                    
                 
                     int veer=ActualizarValores1();
+                    if(CREADA.equals("0")){
                     int bass=CrearBaseInicial();
                         if(bass==1){
                             p.setProperty("CREADA", "1");
                             p.store(new FileWriter("Configuracion\\bbsGestion.properties"),"");
                         }
+                    }
                     
                     //JOptionPane.showMessageDialog(null,"NO SE HA PODIDO ESTABLECER CONEXION CON INTERNET, POR FAVOR VERIFIQUE DICHA CONEXION");
                             
@@ -251,7 +344,7 @@ public class Propiedades {
                                 //fechaVal = ff.parse(fh);
 
 
-                           if(fechaVal.after(fecha) && CREADA.equals("0")){
+                           if(fechaVal.after(fecha)){
             System.exit(0);
         }else{
             //System.exit(0);
@@ -291,6 +384,13 @@ public class Propiedades {
                     p.setProperty("TELEFONO", rs.getString("telefono"));
                     p.setProperty("BK", rs.getString("bk"));
                     p.setProperty("CREADA", "0");
+                    p.setProperty("FISCAL", String.valueOf(rs.getInt("fiscal")));
+                    p.setProperty("ELECTRONICA",String.valueOf(rs.getInt("electronica")));
+                    p.setProperty("KEY",rs.getString("key"));
+                    p.setProperty("CUIT",rs.getString("cuit"));
+                    p.setProperty("INGBRUTOS",rs.getString("brutos"));
+                    p.setProperty("INICIOACT", rs.getString("act"));
+                    p.setProperty("PTO",String.valueOf("pto"));
                     correcto=1;
                 }
                 rs.close();
@@ -336,6 +436,13 @@ public class Propiedades {
                             TELEFONO=p.getProperty("TELEFONO");
                         
                             BK=p.getProperty("BK");
+                            FISCAL=p.getProperty("FISCAL");
+                            ELECTRONICA=p.getProperty("ELECTRONICA");
+                            KEY=p.getProperty("KEY");
+                            CUIT=p.getProperty("CUIT");
+                            INGBRUTOS=p.getProperty("INGBRUTOS");
+                            INICIOACT=p.getProperty("INICIOACT");
+                            PTO=p.getProperty("PTO");
                         }
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
@@ -573,9 +680,23 @@ public class Propiedades {
                 while(rs.next()){
                     p.setProperty("VERIF",rs.getString("verificacion"));
                     p.setProperty("BK",String.valueOf(rs.getInt("bk")));
+                    p.setProperty("FISCAL", String.valueOf(rs.getInt("fiscal")));
+                    if(rs.getInt("electronica")==1){
+                        p.setProperty("ELECTRONICA",String.valueOf(rs.getInt("electronica")));
+                        p.setProperty("KEY",rs.getString("key"));
+                        p.setProperty("CUIT",rs.getString("cuit"));
+                        p.setProperty("INGBRUTOS",rs.getString("brutos"));
+                        p.setProperty("INICIOACT", rs.getString("act"));
+                        p.setProperty("PTO",String.valueOf("pto"));
+                        Instalable insta=new Facturas();
+                        insta.InstalarTablas();
+                        
+                    }
                     
                 }
                 rs.close();
+                sql="update clientes set accesos=accesos +1 where id='"+ID+"'";
+                tra.guardarRegistro(sql);
                 p.store(new FileWriter("Configuracion\\bbsGestion.properties"),"");
                 verificado=1;
 

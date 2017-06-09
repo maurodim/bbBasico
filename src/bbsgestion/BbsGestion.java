@@ -42,6 +42,7 @@ public class BbsGestion {
         File folder=new File("Configuracion");
         File archivos=new File("Informes");
         File bases=new File("Gestion");
+        File electro=new File("Facturas Electronicas");
         //File imagenes=new File("C:\\Gestion\\imagenes\\saynomore.jpg");
         File bk;
         //FileInputStream fregis = new FileInputStream("C:\\Users\\mauro\\Pictures\\Camera Uploads\\snm.jpg"); 
@@ -60,6 +61,7 @@ public class BbsGestion {
         }
         if(!archivos.isDirectory())archivos.mkdirs();
         if(!bases.isDirectory())bases.mkdirs();
+        if(!electro.isDirectory())electro.mkdirs();
         /*
         if(!imagenes.isFile()){
             //imagenes.mkdirs();

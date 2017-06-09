@@ -11,7 +11,7 @@ import Sucursales.ListasDePrecios;
 import Sucursales.Sucursales;
 import Sucursales.Usuarios;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import interfaceGraficas.Inicio;
 import interfaces.Transaccionable;
 import java.io.FileWriter;
@@ -242,7 +242,7 @@ public class ConeccionInstalacion implements Transaccionable{
                     
                     Articulos.BackapearMap(1);
                     Proveedores.BackapearProveedores();
-                    ClientesTango.BackapearClientes();
+                    Clientes.BackapearClientes();
                     ListasDePrecios.BackapearListasDePrecios();
                     Cajas.BackapearCajas();
                     Cajas.LeerCajaAdministradora();
@@ -254,7 +254,7 @@ public class ConeccionInstalacion implements Transaccionable{
                     
                     Articulos.RecargarMap(1);
                     Proveedores.cargarListadoProv();
-                    ClientesTango.cargarMap();
+                    Clientes.cargarMap();
                     ListasDePrecios.cargarMap();
                     
                      JOptionPane.showMessageDialog(null,"BASE DE DATOS CORRECTAMENTE CREADA");

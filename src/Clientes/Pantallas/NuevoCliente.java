@@ -5,7 +5,7 @@
 package Clientes.Pantallas;
 
 import Conversores.Numeros;
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import Clientes.Objetos.ListasDePrecios;
 import facturacion.pantallas.IngresoDePedidos;
 import interfaces.Personalizable;
@@ -176,7 +176,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       ClientesTango cli=new ClientesTango();
+       Clientes cli=new Clientes();
        //cli.setCodigoCliente(title);
        cli.setRazonSocial(this.jTextField1.getText());
        cli.setDireccion(this.jTextField2.getText());
@@ -206,7 +206,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
        cli.setCondicionIva(condicion);
        cli.setNumeroDeCuit(this.jTextField3.getText());
        cli.setTelefono(this.jTextField4.getText());
-       Facturar fact=new ClientesTango();
+       Facturar fact=new Clientes();
         cli.setCodigoId(fact.guardarNuevoCliente(cli));
        IngresoDePedidos.jCheckBox2.setSelected(true);
        IngresoDePedidos.jCheckBox2.setEnabled(false);

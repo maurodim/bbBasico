@@ -4,7 +4,7 @@
  */
 package Clientes.Pantallas;
 
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import facturacion.pantallas.IngresoDePedidos;
 import facturacion.pantallas.IngresoNtaCred;
 import interfaceGraficas.Inicio;
@@ -26,7 +26,7 @@ public class SeleccionDeClientes extends javax.swing.JInternalFrame {
      * Creates new form SeleccionDeClientes
      */
     private ArrayList resultado=new ArrayList();
-    private ClientesTango cliT=new ClientesTango();
+    private Clientes cliT=new Clientes();
     public SeleccionDeClientes() {
         initComponents();
     }
@@ -236,8 +236,8 @@ public class SeleccionDeClientes extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nombre=jTextField1.getText();
-        ClientesTango resCli=new ClientesTango();
-        Busquedas mcli=new ClientesTango();
+        Clientes resCli=new Clientes();
+        Busquedas mcli=new Clientes();
         resultado.clear();
         //ArrayList resultado=new ArrayList();
         resultado=mcli.listar(nombre.toUpperCase());
@@ -266,7 +266,7 @@ public class SeleccionDeClientes extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        
        int posicion=this.jTable1.getSelectedRow();
-       cliT=(ClientesTango)resultado.get(posicion);
+       cliT=(Clientes)resultado.get(posicion);
        this.jPanel3.setVisible(true);
        this.jTextField2.setText(String.valueOf(cliT.getListaDePrecios()));
        this.jTextField4.setText(String.valueOf(cliT.getCondicionDeVenta()));
@@ -301,7 +301,7 @@ private void cargarTabla(){
         this.jTable1.removeAll();
         //ArrayList listadoPedidos=new ArrayList();
         this.jTable1.setModel(busC);
-        ClientesTango pedidos=new ClientesTango();
+        Clientes pedidos=new Clientes();
         busC.addColumn("CODIGO CLIENTE");
         busC.addColumn("RAZON SOCIAL");
         busC.addColumn("DIRECCION");
@@ -313,7 +313,7 @@ private void cargarTabla(){
         Object[] fila=new Object[8];
         Iterator irP=resultado.listIterator();
         while(irP.hasNext()){
-            pedidos=(ClientesTango) irP.next();
+            pedidos=(Clientes) irP.next();
             fila[0]=pedidos.getCodigoCliente();
             fila[1]=pedidos.getRazonSocial();
             fila[2]=pedidos.getDireccion();

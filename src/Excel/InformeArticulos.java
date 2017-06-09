@@ -5,7 +5,7 @@
  */
 package Excel;
 
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import interfaces.Editables;
 import interfaces.Transaccionable;
 import interfacesPrograma.Busquedas;

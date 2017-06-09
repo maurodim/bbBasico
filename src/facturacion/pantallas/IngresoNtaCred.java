@@ -8,7 +8,7 @@ import Clientes.Pantallas.NuevoCliente;
 import Clientes.Pantallas.SeleccionDeClientes;
 import Conversores.Numeros;
 import Fiscal.EpsonTicket;
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 
 import interfaceGraficas.Inicio;
 import interfaces.Modificable;
@@ -47,7 +47,7 @@ public class IngresoNtaCred extends javax.swing.JInternalFrame {
     /**
      * Creates new form IngresoDePedidos
      */
-    public static ClientesTango cliT;
+    public static Clientes cliT;
     private ArrayList detalleDelPedido=new ArrayList();
     private Articulos arti;
     private static ArrayList listadoDeBusqueda=new ArrayList();
@@ -59,7 +59,7 @@ public class IngresoNtaCred extends javax.swing.JInternalFrame {
     
     public IngresoNtaCred() {
         //Articulos.CargarMap();
-        cliT=new ClientesTango("999999");
+        cliT=new Clientes("999999");
         //cliT=(ClientesTango)oob;
         //comp.setCliente(cliT);
         initComponents();
@@ -587,7 +587,7 @@ public class IngresoNtaCred extends javax.swing.JInternalFrame {
         this.jTable2.removeAll();
         listadoDeBusqueda.clear();
         cargarLista(listadoDeBusqueda);
-        cliT=new ClientesTango("999999");
+        cliT=new Clientes("999999");
         this.jLabel6.setText(cliT.getRazonSocial());
         this.jTextField2.setText("");
         jTextField1.setText("");
@@ -769,7 +769,7 @@ public class IngresoNtaCred extends javax.swing.JInternalFrame {
         this.jTable2.removeAll();
         listadoDeBusqueda.clear();
         cargarLista(listadoDeBusqueda);
-        cliT=new ClientesTango("999999");
+        cliT=new Clientes("999999");
         this.jLabel6.setText(cliT.getRazonSocial());
         this.jTextField2.setText("");
         jTextField1.setText("");

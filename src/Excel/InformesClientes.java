@@ -5,7 +5,7 @@
  */
 package Excel;
 
-import Clientes.Objetos.ClientesTango;
+import Clientes.Objetos.Clientes;
 import interfaces.Transaccionable;
 import interfacesPrograma.Busquedas;
 import java.io.FileNotFoundException;
@@ -67,7 +67,7 @@ public class InformesClientes {
         ResultSet rs=null;
         HSSFCellStyle titulo=libro.createCellStyle();
         Iterator iCli=listadoClientes.listIterator();
-        ClientesTango cliente=new ClientesTango();
+        Clientes cliente=new Clientes();
         titulo.setFont(fuente);
         //titulo.setFillBackgroundColor((short)22);
         titulo.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
@@ -97,7 +97,7 @@ public class InformesClientes {
             celda5.setCellValue("Saldo");
             }
             while(iCli.hasNext()){
-                cliente=(ClientesTango)iCli.next();
+                cliente=(Clientes)iCli.next();
             a++;
             //col=rs.getInt("tipoMovimiento");
             switch(col){
@@ -142,7 +142,7 @@ public class InformesClientes {
           /*
            * segunda hoja
            */  
-           Busquedas bus=new ClientesTango();
+           Busquedas bus=new Clientes();
             sql="select numeroProveedor,fecha,monto,numeroComprobante,idUsuario,idCaja,(select tipomovimientos.descripcion from tipomovimientos where tipomovimientos.ID=movimientosclientes.tipoComprobante)as tipocomprobante1,idSucursal,(select listcli.razon_soci from listcli where listcli.codmmd=numeroProveedor)as nombreP from movimientosclientes where numeroProveedor > 1 and fecha between '"+desde+"' and '"+hasta+"' group by numeroComprobante,tipoComprobante order by numeroProveedor,fecha";
             System.out.println(sql);
         //fuente.setFontHeight((short)21);
@@ -238,7 +238,7 @@ public class InformesClientes {
         }
 
     } 
-   public void GenerarInformeIndividual(ClientesTango idCliente) throws SQLException{
+   public void GenerarInformeIndividual(Clientes idCliente) throws SQLException{
                      HSSFWorkbook libro=new HSSFWorkbook();
         HSSFSheet hoja1=libro.createSheet("Detalle de Saldos");
         //HSSFSheet hoja1=libro.createSheet("Detalle de Saldos");
@@ -274,7 +274,7 @@ public class InformesClientes {
         ResultSet rs=null;
         HSSFCellStyle titulo=libro.createCellStyle();
         //Iterator iCli=listadoClientes.listIterator();
-        ClientesTango cliente=new ClientesTango();
+        Clientes cliente=new Clientes();
         titulo.setFont(fuente);
         //titulo.setFillBackgroundColor((short)22);
         titulo.setFillForegroundColor(IndexedColors.YELLOW.getIndex());

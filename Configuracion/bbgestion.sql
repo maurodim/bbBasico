@@ -111,7 +111,7 @@ CREATE TABLE `caja` (
 
 LOCK TABLES `caja` WRITE;
 /*!40000 ALTER TABLE `caja` DISABLE KEYS */;
-INSERT INTO `caja` VALUES (1,1,1,9,0,0,1,NULL,NULL,NULL,'2017-06-01 10:44:29');
+INSERT INTO `caja` VALUES (1,1,1,9,0,0,1,NULL,NULL,NULL,'2017-06-03 20:48:46');
 /*!40000 ALTER TABLE `caja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,6 +215,40 @@ LOCK TABLES `depositos` WRITE;
 /*!40000 ALTER TABLE `depositos` DISABLE KEYS */;
 INSERT INTO `depositos` VALUES (1,'casa central','lamadradid 2552','4555555');
 /*!40000 ALTER TABLE `depositos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `facturas`
+--
+
+DROP TABLE IF EXISTS `facturas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `facturas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idcliente` int(11) NOT NULL DEFAULT '0',
+  `total` double NOT NULL DEFAULT '0',
+  `tipo` int(11) NOT NULL DEFAULT '0',
+  `idusuario` int(11) NOT NULL DEFAULT '0',
+  `idpedido` int(11) DEFAULT NULL,
+  `idremito` int(11) DEFAULT NULL,
+  `numerofactura` varchar(30) NOT NULL DEFAULT ' ',
+  `estado` int(11) NOT NULL DEFAULT '0',
+  `saldo` double NOT NULL DEFAULT '0',
+  `subtotal` double NOT NULL DEFAULT '0',
+  `descuento` double NOT NULL DEFAULT '0',
+  `porcentajed` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `facturas`
+--
+
+LOCK TABLES `facturas` WRITE;
+/*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -422,7 +456,7 @@ CREATE TABLE `movimientoscaja` (
 
 LOCK TABLES `movimientoscaja` WRITE;
 /*!40000 ALTER TABLE `movimientoscaja` DISABLE KEYS */;
-INSERT INTO `movimientoscaja` VALUES (1,NULL,1,37,0,0,9,1,NULL,0,NULL,NULL,NULL,1,0,'2017-06-01 10:44:29');
+INSERT INTO `movimientoscaja` VALUES (1,NULL,1,37,0,0,9,1,NULL,0,NULL,NULL,NULL,1,0,'2017-06-03 20:48:46');
 /*!40000 ALTER TABLE `movimientoscaja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -567,7 +601,7 @@ CREATE TABLE `proveedores` (
   `mail` varchar(200) NOT NULL DEFAULT '',
   `saldo` double DEFAULT NULL,
   PRIMARY KEY (`numero`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -576,6 +610,7 @@ CREATE TABLE `proveedores` (
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
+INSERT INTO `proveedores` VALUES (NULL,'hola','','','',NULL,1,'',NULL);
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -743,7 +778,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'administrador','','','','','adm','adm',1,1,1),(2,'ELIEL','','','','','ELIEL','ELIEL',2,2,7);
+INSERT INTO `usuarios` VALUES (1,'administrador','','','','','mauro','mauro',1,1,1),(2,'ELIEL','','','','','ELIEL','ELIEL',2,2,7);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -756,4 +791,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-01  7:58:43
+-- Dump completed on 2017-06-09 14:52:13
