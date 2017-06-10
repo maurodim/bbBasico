@@ -6,6 +6,8 @@
 package Configuracion;
 
 import Conversores.Numeros;
+import FacturaE.DetalleFacturas;
+import FacturaE.FacturaElectronica;
 import FacturaE.Facturas;
 import FacturaE.Instalable;
 import ObjetosBackUp.BackUp;
@@ -390,7 +392,7 @@ public class Propiedades {
                     p.setProperty("CUIT",rs.getString("cuit"));
                     p.setProperty("INGBRUTOS",rs.getString("brutos"));
                     p.setProperty("INICIOACT", rs.getString("act"));
-                    p.setProperty("PTO",String.valueOf("pto"));
+                    p.setProperty("PTO",String.valueOf(rs.getInt("pto")));
                     correcto=1;
                 }
                 rs.close();
@@ -681,15 +683,20 @@ public class Propiedades {
                     p.setProperty("VERIF",rs.getString("verificacion"));
                     p.setProperty("BK",String.valueOf(rs.getInt("bk")));
                     p.setProperty("FISCAL", String.valueOf(rs.getInt("fiscal")));
+                    p.setProperty("ELECTRONICA",String.valueOf(rs.getInt("electronica")));
                     if(rs.getInt("electronica")==1){
-                        p.setProperty("ELECTRONICA",String.valueOf(rs.getInt("electronica")));
+                        
                         p.setProperty("KEY",rs.getString("key"));
                         p.setProperty("CUIT",rs.getString("cuit"));
                         p.setProperty("INGBRUTOS",rs.getString("brutos"));
                         p.setProperty("INICIOACT", rs.getString("act"));
-                        p.setProperty("PTO",String.valueOf("pto"));
+                        p.setProperty("PTO",String.valueOf(rs.getInt("pto")));
                         Instalable insta=new Facturas();
                         insta.InstalarTablas();
+                        Instalable isEle=new FacturaElectronica();
+                        isEle.InstalarTablas();
+                        Instalable insDet=new DetalleFacturas();
+                        insDet.InstalarTablas();
                         
                     }
                     

@@ -84,14 +84,17 @@ public class pdfsJavaGenerador {
             cb.setFontAndSize(bf,16);
             cb.beginText();
             cb.setTextMatrix(100,790);
+            cb.showText(Propiedades.getNOMBRECOMERCIO());
             //cb.showText("eR&Re");
             //cb.add(imagen);
             cb.setFontAndSize(bf,10);
             cb.setTextMatrix(100, 740);
+            cb.showText(Propiedades.getDIRECCION());
             //cb.showText("PAPELES");
             bf = BaseFont.createFont(BaseFont.COURIER,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,8);
             cb.setTextMatrix(40,720);
+            cb.showText(Propiedades.getTELEFONO());
             //cb.showText("de Rivadeneira Enrique y Rivadeneira Jorge S.H.");
             bf = BaseFont.createFont(BaseFont.COURIER_BOLD,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,14);
@@ -161,7 +164,22 @@ public class pdfsJavaGenerador {
             }
             cb.showText("Cond. Vta: "+condV);
             cb.setTextMatrix(380,670);
-            cb.showText("Cond. Iva: "+cliente.getCondicionIva());
+            Integer condIvv=Integer.parseInt(cliente.getCondicionIva());
+            switch(condIvv){
+                case 1:
+                    cb.showText("Cond. Iva: Consumidor Final");
+                    break;
+                case 2:
+                    cb.showText("Cond. Iva: Responsable Inscripto");
+                    break;
+                case 3:
+                    cb.showText("Cond. Iva: Exento");
+                    break;
+                default:
+                    cb.showText("Cond. Iva: Consumidor Final");
+                    break;
+            }
+            //cb.showText("Cond. Iva: "+cliente.getCondicionIva());
             cb.setTextMatrix(40,670);
             cb.showText("Direccion: "+cliente.getDireccion());
             cb.setTextMatrix(40,660);

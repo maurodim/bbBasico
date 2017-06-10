@@ -21,7 +21,7 @@ import objetos.Conecciones;
  *
  * @author mauro di
  */
-public class DetalleFacturas implements Facturable{
+public class DetalleFacturas implements Facturable,Instalable{
     private Integer id;
     private Integer idFactura;
     private Integer idArticulo;
@@ -231,6 +231,21 @@ public class DetalleFacturas implements Facturable{
 
     @Override
     public Object cargarIdFactura(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean InstalarTablas() {
+     
+        Transaccionable tra=new Conecciones();
+        tra.guardarRegistro("CREATE TABLE detallefacturas (id int(11) NOT NULL,idfactura int(11) NOT NULL,idarticulo int(11) NOT NULL,cantidad int(11) NOT NULL,descripcionarticulo varchar(150) DEFAULT NULL, preciounitario double NOT NULL,descuento int(11) NOT NULL,cantidadremitida double NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+        tra.guardarRegistro("ALTER TABLE detallefacturas ADD PRIMARY KEY (id)");
+        tra.guardarRegistro("ALTER TABLE detallefacturas MODIFY id int(11) NOT NULL AUTO_INCREMENT");
+        return true;
+    }
+
+    @Override
+    public Boolean ActualizarTablas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

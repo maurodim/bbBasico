@@ -743,7 +743,7 @@ public class IngresoNtaCred extends javax.swing.JInternalFrame {
             
             comprobante.setFiscal(1);
             
-            if(fat.guardar(comprobante)){
+            if(fat.guardar(comprobante)!=null){
                 
             }else{
                 JOptionPane.showMessageDialog(this,"Error al emitir el comprobante, el mismo no se pudo generar");

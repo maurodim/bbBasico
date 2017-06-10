@@ -10,6 +10,9 @@ import Conversores.Numeros;
 import Fiscal.EpsonTicket;
 import Impresiones.Impresora;
 import Clientes.Objetos.Clientes;
+import Configuracion.Propiedades;
+import FacturaE.FacturaElectronica;
+import FacturaE.pdfsJavaGenerador;
 
 import interfaceGraficas.Inicio;
 import interfaces.Modificable;
@@ -19,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -32,9 +36,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.xml.parsers.ParserConfigurationException;
 import objetos.Articulos;
 import objetos.Comprobantes;
 import objetos.Conecciones;
+import org.xml.sax.SAXException;
 import tablas.MiModeloTablaBuscarCliente;
 import tablas.MiModeloTablaFacturacion;
 
@@ -57,6 +63,8 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
     private TableColumn columnaNumero;
     private TableColumn columnaDescripcion;
     private TableColumn columnaPrecio;
+    private Double subTotal;
+    private Double porcentajeDescuento;
     
     public IngresoDePedidos() {
         //Articulos.CargarMap();
@@ -74,7 +82,11 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         this.jCheckBox2.setEnabled(false);
         this.jTextField1.requestFocus();
         //this.jPanel2.requestFocus();
-        
+        if(Propiedades.getELECTRONICA().equals("1")){
+            this.jButton4.setEnabled(true);
+        }else{
+            this.jButton4.setEnabled(false);
+        }
     }
 
     /**
@@ -116,6 +128,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -384,6 +397,13 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton4.setText("FACT ELECT");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -391,18 +411,23 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -767,7 +792,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
             
             comprobante.setFiscal(1);
             
-            if(fat.guardar(comprobante)){
+            if(fat.guardar(comprobante)!=null){
                 
             }else{
                 JOptionPane.showMessageDialog(this,"Error al emitir el comprobante, el mismo no se pudo generar");
@@ -914,6 +939,173 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
     private void jLabel10PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel10PropertyChange
         System.out.println(cliT.getCondicionDeVenta());
     }//GEN-LAST:event_jLabel10PropertyChange
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //verificar();
+        //Impresora imp=new Impresora();
+        String cadena=cliT.getCodigoCliente()+" - "+cliT.getRazonSocial()+"\n"+cliT.getDireccion();
+        //comp.setCliente(cliT);
+        //VisorDeHojaDeRuta
+
+        //comp.setVendedor(VisorDeHojaDeRuta.tG.getOperador());
+        if(this.jCheckBox1.isSelected()){
+            //    comp.setReparto(1);
+            //    comp.setEntrega(String.valueOf(this.jTextField3.getText()));
+        }
+
+        //comp.setArticulos(detalleDelPedido);
+        DecimalFormat fr=new DecimalFormat("00");
+        Calendar c1=Calendar.getInstance();
+        Calendar c2=new GregorianCalendar();
+        String dia=Integer.toString(c2.get(Calendar.DAY_OF_MONTH));
+        String mes=Integer.toString(c2.get(Calendar.MONTH));
+        String ano=Integer.toString(c2.get(Calendar.YEAR));
+
+        int da=Integer.parseInt(dia);
+        int me=Integer.parseInt(mes);
+        me++;
+        dia=fr.format(da);
+        mes=fr.format(me);
+        String fecha=dia+"/"+mes+"/"+ano;
+        String fecha2=ano+"-"+mes+"-"+dia;
+        //comp.setFechaComprobante(fecha2);
+        //comp.setFechaComprobante(fecha);
+        
+        int comprobanteTipo=1;
+        if(cliT.getCondicionIva().equals("1"))comprobanteTipo=1;
+        if(cliT.getCondicionIva().equals("2"))comprobanteTipo=2;
+        if(cliT.getCondicionIva().equals("3"))comprobanteTipo=3;
+        
+        Comprobantes comprobante=new Comprobantes();
+        comprobante.setFe(true);
+        comprobante.setCliente(cliT);
+        comprobante.setTipoMovimiento(1);
+        comprobante.setTipoComprobante(comprobanteTipo);
+        comprobante.setFechaEmision((Date.valueOf(fecha2)));
+        comprobante.setListadoDeArticulos(detalleDelPedido);
+        comprobante.setUsuarioGenerador(Inicio.usuario.getNumero());
+        comprobante.setIdSucursal(Inicio.sucursal.getNumero());
+        comprobante.setIdDeposito(Inicio.deposito.getNumero());
+        Integer numeroCaja=Inicio.caja.getNumero();
+        //System.out.println("EL NUMERO DE CAJA ESSSSSSSS "+numeroCaja);
+        comprobante.setIdCaja(numeroCaja);
+        if(montoTotal == 0.00){
+            String sqM="usuario :"+Inicio.usuario.getNombre()+" sucursal "+Inicio.sucursal.getNumero()+" idcaja "+Inicio.caja.getNumero();
+            JOptionPane.showMessageDialog(this,"OJO EL MONTO DE ESTE COMPROBANTE ES $ 0, AVISE PARA DETECTAR EL ERROR");
+            FileWriter fichero=null;
+            PrintWriter pw=null;
+            try {
+                fichero = new FileWriter("Gestion\\"+Inicio.fechaDia+" - errores en comprobantes.txt",true);
+                    pw=new PrintWriter(fichero);
+                    pw.println(sqM);
+                } catch (IOException ex1) {
+                    Logger.getLogger(IngresoDePedidos.class.getName()).log(Level.SEVERE, null, ex1);
+                }finally{
+                    try {
+                        // Nuevamente aprovechamos el finally para
+                        // asegurarnos que se cierra el fichero.
+                        if (null != fichero)
+                        fichero.close();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
+                    }
+                }
+            }
+            subTotal=montoTotal;
+            Double ivv=subTotal * 0.21;
+            Double sub=0.00;
+            Double tot=montoTotal + ivv;
+            porcentajeDescuento=0.00;
+            if(porcentajeDescuento > 0.00){
+                sub = subTotal * porcentajeDescuento;
+                sub= montoTotal - sub;
+            }else{
+                sub=montoTotal;
+            }
+
+            comprobante.setMontoTotal(sub);
+            comprobante.setSubTotal(montoTotal);
+            Double descuen=montoTotal - sub;
+            comprobante.setDescuento(descuen);
+            comprobante.setPorcentajeDescuento(porcentajeDescuento);
+
+            int noFacturar=0;
+            if(IngresoDePedidos.jCheckBox2.isSelected()){
+                comprobante.setPagado(1);
+            }else{
+                comprobante.setPagado(0);
+                /*
+                * ACA DEBO COMPROBAR EL LIMITE DEL CLIENTE Y SI LO SUPERA LA COMPRA RECHAZAR LA VENTA
+                *
+                */
+                Double limite=cliT.getCupoDeCredito();
+                //Double saldo=cliT.getSaldo();
+                //Double totalGral=montoTotal + saldo;
+                Double totalGral=montoTotal;
+                if(limite < totalGral)noFacturar=1;
+
+            }
+            if(noFacturar==0){
+                comprobante.setFiscal(1);
+                Facturar fat=new Comprobantes();
+                comprobante=(Comprobantes)fat.guardar(comprobante);
+                // aqui hago el envio a factura  electronica, si aprueba no imprime
+
+                FacturaElectronica fe=new FacturaElectronica();
+                try {
+
+                    fe=(FacturaElectronica) fe.leer(comprobante);
+                    if(fe.getRespuesta().equals("OK")){
+                        //JOptionPane.showMessageDialog(this,"aprobada id: "+fe.getId());
+                        pdfsJavaGenerador pdf=new pdfsJavaGenerador();
+                        pdf.setDoc(fe);
+                        pdf.setCliente(cliT);
+                        pdf.run();
+                        /*
+                        ImprimirFactura imprimir=new ImprimirFactura();
+                        try {
+                            imprimir.ImprimirFactura(comprobante.getNumero(),comprobante.getTipoComprobante());
+                        } catch (IOException ex) {
+                            Logger.getLogger(IngresoDeFacturas.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        */
+
+                    }else{
+                        if(fe.getRespuesta().equals("PARAMETROS"))JOptionPane.showMessageDialog(this,"Error en los parametros del cliente, modifiquelos en cae pendientes");
+                        JOptionPane.showMessageDialog(this,"error en la coneccion, intentelo mas tarde");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(IngresoDePedidos.class.getName()).log(Level.SEVERE, null, ex);
+                    System.err.println(ex);
+                } catch (ParserConfigurationException ex) {
+                    Logger.getLogger(IngresoDePedidos.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SAXException ex) {
+                    Logger.getLogger(IngresoDePedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                /*
+                * ACA DEBO LIMPIAR TODOS LOS CAMPOS Y VARIABLES DE LA PANTALLA
+                *
+                */
+                //comp.setTipoComprobante(comprobanteTipo);
+                //comp.setMontoTotal(montoTotal);
+                detalleDelPedido.clear();
+                agregarRenglonTabla();
+                this.jCheckBox2.setSelected(true);
+                //this.jCheckBox2.setEnabled(false);
+                this.jTable2.removeAll();
+                listadoDeBusqueda.clear();
+                cargarLista(listadoDeBusqueda);
+                //cliT=new Clientes("99");
+                this.jLabel6.setText(cliT.getRazonSocial());
+                this.jTextField2.setText("");
+                jTextField1.setText("");
+                jTextField1.requestFocus();
+            }else{
+                JOptionPane.showMessageDialog(this,"El cliente supera el límite de crédito, debe abonar la venta");
+                noFacturar=0;
+            }
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 private void cargarLista(ArrayList lista){
     DefaultTableModel modelo=new DefaultTableModel();
     Modificable mod=new Articulos();
@@ -1012,6 +1204,7 @@ private void verificar(){
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
     public static javax.swing.JCheckBox jCheckBox2;

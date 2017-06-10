@@ -242,7 +242,7 @@ public class FacturaElectronica implements FacturableE,Instalable{
     public Object leer(Object comp) throws MalformedURLException, IOException, ParserConfigurationException, SAXException{
         Comprobantes compro=new Comprobantes();
         compro=(Comprobantes)comp;
-        URL url = new URL("https://tufacturaelectronica.net/api/v1/SANDBOX");
+        URL url = new URL("https://tufacturaelectronica.net/api/v1/FE");
         String charSet="UTF-8";
         String tipo="xml";
         String key=Propiedades.getKEY();
@@ -316,7 +316,7 @@ public class FacturaElectronica implements FacturableE,Instalable{
       String response;
       String cadena="";
       while((response=in.readLine())!=null){
-          System.out.println(response);
+          System.out.println("cadena "+response);
           cadena=response;
       }
           
@@ -408,7 +408,7 @@ public class FacturaElectronica implements FacturableE,Instalable{
             fE.setRespuesta("PARAMETROS");  
         }
         
-        //fE.setIdFactura(compro.getIdFactura());
+        fE.setIdFactura(compro.getIdFactura());
         fE.setIdCliente(compro.getCliente().getCodigoId());
         fE.setCustomerId(idCliente);
         fE.setCustomerTypeDoc(tipoDocumento);

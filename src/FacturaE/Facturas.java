@@ -372,7 +372,7 @@ public class Facturas implements Facturable,Instalable{
     @Override
     public Object cargarIdFactura(Integer id) {
         Facturas factura=new Facturas();
-        String sql="select *,(select tipocomprobantes.descripcion from tipocomprobantes where tipocomprobantes.id=facturas.tipo)as descripcionTipo from facturas where id="+id;
+        String sql="select *,(select tipocomprobantes.descripcion from tipocomprobantes where tipocomprobantes.numero=facturas.tipo)as descripcionTipo from facturas where id="+id;
         Transaccionable tra=new Conecciones();
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
         try {

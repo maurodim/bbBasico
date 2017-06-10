@@ -46,11 +46,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
         jTextField5 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox();
 
         setClosable(true);
         setResizable(true);
@@ -77,19 +77,12 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Lista de precios :");
+        jLabel7.setText("Saldo Inicial:");
+
+        jLabel8.setText("Condicion de Iva:");
 
         //ArrayList listadoL=new ArrayList();
-        Personalizable per=new ListasDePrecios();
-        ListasDePrecios listaP=new ListasDePrecios();
-        listadoL=per.listar();
-        Iterator ilL=listadoL.listIterator();
-        while(ilL.hasNext()){
-            listaP=(ListasDePrecios)ilL.next();
-            jComboBox2.addItem(listaP.getDescripcionLista());
-        }
-
-        jLabel7.setText("Saldo Inicial:");
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consumidor Final", "Responsable Inscripto", "Exento" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,23 +94,23 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
                             .addComponent(jTextField2)
                             .addComponent(jTextField3)
                             .addComponent(jTextField4)
-                            .addComponent(jComboBox2, 0, 297, Short.MAX_VALUE)
                             .addComponent(jTextField5)
-                            .addComponent(jTextField6))))
-                .addContainerGap(342, Short.MAX_VALUE))
+                            .addComponent(jTextField6)
+                            .addComponent(jComboBox3, 0, 297, Short.MAX_VALUE))))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,11 +141,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,7 +173,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
        //cli.setCodigoCliente(title);
        cli.setRazonSocial(this.jTextField1.getText());
        cli.setDireccion(this.jTextField2.getText());
-       String condicion="1";
+       String condicion="";
        Double limite=Numeros.ConvertirStringADouble(this.jTextField5.getText());
        cli.setCupoDeCredito(limite);
        if(limite > 0){
@@ -189,9 +182,21 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
            cli.setCondicionDeVenta(1);
        }
            cli.setEmpresa("bu");
-       
+           int tipoIva=0;
+       switch(this.jComboBox3.getSelectedIndex()){
+           case 1:
+               tipoIva=2;
+               break;
+           case 2:
+               tipoIva=3;
+               break;
+           default:
+               tipoIva=1;
+               break;
+       }
+       condicion=String.valueOf(tipoIva);
        ListasDePrecios lista=new ListasDePrecios();
-       int posLista=this.jComboBox2.getSelectedIndex();
+       int posLista=0;
        if(posLista < 0)posLista=0;
        lista=(ListasDePrecios)listadoL.get(posLista);
        cli.setListaDePrecios(lista.getNumeroLista());
@@ -217,14 +222,14 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

@@ -22,6 +22,7 @@ import Sucursales.Sucursales;
 import Sucursales.Usuarios;
 import Clientes.Objetos.Clientes;
 import Configuracion.Propiedades;
+import FacturaE.AbmFacturaElectronica;
 import facturacion.pantallas.IngresoDePedidos;
 import facturacion.pantallas.IngresoNtaCred;
 import interfacesPrograma.Cajeables;
@@ -136,8 +137,12 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         Image icon=new ImageIcon(getClass().getResource("/imagen/icono.png")).getImage();
         this.setIconImage(icon);
-        
-        
+        System.out.println(Propiedades.getELECTRONICA());
+        if(Propiedades.getELECTRONICA().equals("1")){
+            this.jMenu10.setEnabled(true);
+        }else{
+            this.jMenu10.setEnabled(false);
+        }
  
         //permisos(nivel);
     }
@@ -207,6 +212,8 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem22 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem23 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem26 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -480,6 +487,18 @@ public class Inicio extends javax.swing.JFrame {
         jMenu8.add(jMenuItem23);
 
         jMenuBar1.add(jMenu8);
+
+        jMenu10.setText("CAE Pendientes");
+
+        jMenuItem26.setText("Listar");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem26);
+
+        jMenuBar1.add(jMenu10);
 
         jMenu9.setText("Acerca de..");
         jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -773,6 +792,13 @@ public class Inicio extends javax.swing.JFrame {
         prese.toFront();
     }//GEN-LAST:event_jMenu9MouseClicked
 
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+         AbmFacturaElectronica fe=new AbmFacturaElectronica();
+        Inicio.jDesktopPane1.add(fe);
+        fe.setVisible(true);
+        fe.toFront();
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -831,6 +857,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktopPane1;
     public static javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     public static javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -858,6 +885,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
