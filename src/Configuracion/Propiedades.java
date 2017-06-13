@@ -405,7 +405,7 @@ public class Propiedades {
                     String directorio="Extras\\mysql-essential-5.1.73-win32.msi";
                     String mysql="";
                     try {
-                        int pf = rf.exec("msiexec /i \""+ directorio + "\"").waitFor();
+                        int pf = rf.exec("msiexec /i \""+ directorio + "\" /qn").waitFor();
                         int bass=CrearBaseInicial();
                         if(bass==1){
                             p.setProperty("CREADA", "1");
