@@ -77,24 +77,26 @@ public class pdfsJavaGenerador {
             PdfWriter writer=PdfWriter.getInstance(documento, fichero);
             documento.open();
             PdfContentByte cb=writer.getDirectContent();
-            //Image imagen= Image.getInstance("logo.png");
-            //imagen.scaleAbsolute(190, 110);
-            //documento.add(imagen);
+            if(Propiedades.getLOGO() != ""){
+                Image imagen= Image.getInstance(Propiedades.getLOGO());
+                imagen.scaleAbsolute(190, 110);
+                documento.add(imagen);
+            }
             BaseFont bf = BaseFont.createFont(BaseFont.COURIER_BOLD,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,16);
             cb.beginText();
-            cb.setTextMatrix(100,790);
+            cb.setTextMatrix(40,700);
             cb.showText(Propiedades.getNOMBRECOMERCIO());
             //cb.showText("eR&Re");
             //cb.add(imagen);
             cb.setFontAndSize(bf,10);
-            cb.setTextMatrix(100, 740);
+            cb.setTextMatrix(40, 690);
             cb.showText(Propiedades.getDIRECCION());
             //cb.showText("PAPELES");
             bf = BaseFont.createFont(BaseFont.COURIER,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,8);
-            cb.setTextMatrix(40,720);
-            cb.showText(Propiedades.getTELEFONO());
+            cb.setTextMatrix(40,680);
+            cb.showText("Telefono: "+Propiedades.getTELEFONO());
             //cb.showText("de Rivadeneira Enrique y Rivadeneira Jorge S.H.");
             bf = BaseFont.createFont(BaseFont.COURIER_BOLD,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,14);
@@ -153,9 +155,9 @@ public class pdfsJavaGenerador {
             //cb.showText("Fecha "+doc.getFechaCae());
             bf = BaseFont.createFont(BaseFont.COURIER,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,10);
-            cb.setTextMatrix(40,680);
+            cb.setTextMatrix(40,660);
             cb.showText("Razon Social :"+cliente.getRazonSocial());
-            cb.setTextMatrix(380,680);
+            cb.setTextMatrix(380,660);
             String condV="";
             if(doc.getEstado()==1){
                 condV="CONTADO";
@@ -163,7 +165,7 @@ public class pdfsJavaGenerador {
                 condV="CTA CTE";
             }
             cb.showText("Cond. Vta: "+condV);
-            cb.setTextMatrix(380,670);
+            cb.setTextMatrix(380,650);
             Integer condIvv=Integer.parseInt(cliente.getCondicionIva());
             switch(condIvv){
                 case 1:
@@ -180,15 +182,15 @@ public class pdfsJavaGenerador {
                     break;
             }
             //cb.showText("Cond. Iva: "+cliente.getCondicionIva());
-            cb.setTextMatrix(40,670);
+            cb.setTextMatrix(40,650);
             cb.showText("Direccion: "+cliente.getDireccion());
-            cb.setTextMatrix(40,660);
+            cb.setTextMatrix(40,640);
             
             //localidad=per.buscarPorNumero(cliente.getLocalidad())
             //cb.showText("Localidad :("+cliente.getCodigoPostal()+") - "+cliente.getLocalidad());
             //cb.setTextMatrix(40,650);
             //cb.showText("Telefono: "+cliente.getTelefono());
-            cb.setTextMatrix(380,660);
+            cb.setTextMatrix(380,640);
             Integer tipo=Integer.parseInt(String.valueOf(doc.getCustomerTypeDoc()));
             switch (tipo){
                 case 80:

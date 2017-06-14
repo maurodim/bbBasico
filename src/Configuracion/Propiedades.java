@@ -685,7 +685,7 @@ public class Propiedades {
                     p.setProperty("FISCAL", String.valueOf(rs.getInt("fiscal")));
                     p.setProperty("ELECTRONICA",String.valueOf(rs.getInt("electronica")));
                     if(rs.getInt("electronica")==1){
-                        
+                        if(rs.getInt("idlogo")==1)p.setProperty("LOGO", rs.getString("logo"));
                         p.setProperty("KEY",rs.getString("key"));
                         p.setProperty("CUIT",rs.getString("cuit"));
                         p.setProperty("INGBRUTOS",rs.getString("brutos"));
