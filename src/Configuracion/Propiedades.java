@@ -74,8 +74,18 @@ public class Propiedades {
     static String INGBRUTOS;
     static String INICIOACT;
     static String PTO;
+    static String CONDICION;
+
+    public static String getCONDICION() {
+        return CONDICION;
+    }
+
+    public static void setCONDICION(String CONDICION) {
+        Propiedades.CONDICION = CONDICION;
+    }
     
 
+    
     public static String getPTO() {
         return PTO;
     }
@@ -304,6 +314,7 @@ public class Propiedades {
                             INGBRUTOS=p.getProperty("INGBRUTOS");
                             INICIOACT=p.getProperty("INICIOACT");
                             PTO=p.getProperty("PTO");
+                            CONDICION=p.getProperty("CONDICION");
                             
                         
                     
@@ -393,6 +404,7 @@ public class Propiedades {
                     p.setProperty("INGBRUTOS",rs.getString("brutos"));
                     p.setProperty("INICIOACT", rs.getString("act"));
                     p.setProperty("PTO",String.valueOf(rs.getInt("pto")));
+                    p.setProperty("CONDICION",String.valueOf(rs.getInt("condicion")));
                     correcto=1;
                 }
                 rs.close();
@@ -445,6 +457,7 @@ public class Propiedades {
                             INGBRUTOS=p.getProperty("INGBRUTOS");
                             INICIOACT=p.getProperty("INICIOACT");
                             PTO=p.getProperty("PTO");
+                            CONDICION=p.getProperty("CONDICION");
                         }
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
@@ -691,6 +704,7 @@ public class Propiedades {
                         p.setProperty("INGBRUTOS",rs.getString("brutos"));
                         p.setProperty("INICIOACT", rs.getString("act"));
                         p.setProperty("PTO",String.valueOf(rs.getInt("pto")));
+                        p.setProperty("CONDICION",String.valueOf(rs.getInt("condicion")));
                         Instalable insta=new Facturas();
                         insta.InstalarTablas();
                         Instalable isEle=new FacturaElectronica();

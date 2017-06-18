@@ -271,14 +271,23 @@ public class FacturaElectronica implements FacturableE,Instalable{
             
         }
         String tipoDocumento=String.valueOf(tipDocumento);
-        if(compro.getTipoComprobante()==1)tipComprobante=6;
-        if(compro.getTipoComprobante()==2)tipComprobante=1;
-        if(compro.getTipoComprobante()==9)tipComprobante=2;
-        if(compro.getTipoComprobante()==10)tipComprobante=3;
-        if(compro.getTipoComprobante()==11)tipComprobante=7;
-        if(compro.getTipoComprobante()==12)tipComprobante=8;
-        
+        if(Propiedades.getCONDICION().equals("2")){
+            if(compro.getTipoComprobante()==1)tipComprobante=6;
+            if(compro.getTipoComprobante()==2)tipComprobante=1;//1
+            if(compro.getTipoComprobante()==9)tipComprobante=2;//2
+            if(compro.getTipoComprobante()==10)tipComprobante=3;//3
+            if(compro.getTipoComprobante()==11)tipComprobante=7;
+            if(compro.getTipoComprobante()==12)tipComprobante=8;
+        }else{
+            if(compro.getTipoComprobante()==1)tipComprobante=11;
+            if(compro.getTipoComprobante()==2)tipComprobante=11;//1
+            if(compro.getTipoComprobante()==9)tipComprobante=12;//2
+            if(compro.getTipoComprobante()==10)tipComprobante=13;//3
+            if(compro.getTipoComprobante()==11)tipComprobante=12;
+            if(compro.getTipoComprobante()==12)tipComprobante=13;
+        }
         String tipoComprobante=String.valueOf(tipComprobante);
+        System.out.println(tipComprobante);
         String importeTotal=String.valueOf(compro.getMontoTotal());
         String importeNeto=String.valueOf(compro.getMontoBruto());
         String importeEx="0.0";

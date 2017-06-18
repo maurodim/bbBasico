@@ -189,6 +189,7 @@ public class Facturas implements Facturable,Instalable{
         Facturas factura=new Facturas();
         factura=(Facturas)ped;
         Transaccionable tra=new Conecciones();
+        
         String sql="insert into facturas (idcliente,total,tipo,idusuario,idpedido,idremito,numerofactura,estado,saldo,subtotal,descuento,porcentajeD) values ("+factura.getIdCliente()+",round("+factura.getTotal()+",4),"+factura.getTipo()+","+factura.getIdUsuario()+","+factura.getIdPedido()+","+factura.getIdRemito()+","+factura.getNumeroFactura()+","+factura.getEstado()+",round("+factura.getTotal()+",4),"+factura.getSubTotal()+","+factura.getDescuento()+","+factura.getPorcentajeDescuento()+")";
         tra.guardarRegistro(sql);
         int idNuevo=0;

@@ -198,8 +198,9 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
        ListasDePrecios lista=new ListasDePrecios();
        int posLista=0;
        if(posLista < 0)posLista=0;
-       lista=(ListasDePrecios)listadoL.get(posLista);
-       cli.setListaDePrecios(lista.getNumeroLista());
+       //lista=(ListasDePrecios)listadoL.get(posLista);
+       //lista=new 
+       cli.setListaDePrecios(1);
        /*
        if(cli.getCupoDeCredito() > 0.00){
            cli.setCondicionDeVenta(2);
@@ -207,7 +208,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
         cli.setCondicionDeVenta(1);
        }
                */
-       cli.setCoeficienteListaDeprecios(lista.getPorcentaje());
+       cli.setCoeficienteListaDeprecios(1.0);
        cli.setCondicionIva(condicion);
        cli.setNumeroDeCuit(this.jTextField3.getText());
        cli.setTelefono(this.jTextField4.getText());

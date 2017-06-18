@@ -972,6 +972,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         //comp.setFechaComprobante(fecha);
         
         int comprobanteTipo=1;
+        //cliT.setCondicionIva("1");
         if(cliT.getCondicionIva().equals("1"))comprobanteTipo=1;
         if(cliT.getCondicionIva().equals("2"))comprobanteTipo=2;
         if(cliT.getCondicionIva().equals("3"))comprobanteTipo=3;

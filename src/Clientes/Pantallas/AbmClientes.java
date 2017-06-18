@@ -107,6 +107,7 @@ public class AbmClientes extends javax.swing.JInternalFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/excel_icone.png"))); // NOI18N
         jButton3.setText("Informe de Clientes");
+        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -149,6 +150,7 @@ public class AbmClientes extends javax.swing.JInternalFrame {
         );
 
         jButton2.setText("Ver Detalle de Saldo");
+        jButton2.setEnabled(false);
         jButton2.setMaximumSize(new java.awt.Dimension(101, 39));
         jButton2.setMinimumSize(new java.awt.Dimension(101, 39));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
