@@ -240,8 +240,11 @@ public class FacturaElectronica implements FacturableE,Instalable{
     
     
     public Object leer(Object comp) throws MalformedURLException, IOException, ParserConfigurationException, SAXException{
+        
         Comprobantes compro=new Comprobantes();
         compro=(Comprobantes)comp;
+        FacturaElectronica fE=new FacturaElectronica();
+        if(Propiedades.getCONDICION().equals("2")){
         URL url = new URL("https://tufacturaelectronica.net/api/v1/FE");
         String charSet="UTF-8";
         String tipo="xml";
@@ -249,7 +252,7 @@ public class FacturaElectronica implements FacturableE,Instalable{
         String cuit=compro.getCliente().getNumeroDeCuit().trim();
         Integer tipDocumento=0;
         Integer tipComprobante=0;
-        FacturaElectronica fE=new FacturaElectronica();
+        
         String idCliente=compro.getCliente().getNumeroDeCuit();
         fE.setEstado(compro.getPagado());
         if(idCliente.length() == 8 || idCliente.length()==11){
@@ -428,6 +431,12 @@ public class FacturaElectronica implements FacturableE,Instalable{
         
         fE.setId(guardar(fE));
         
+        }
+        if(Propiedades.getCONDICION().equals("1")){
+            ComprobanteC comC=new ComprobanteC();
+            fE=(FacturaElectronica) comC.leer(comp);
+            
+        }
         
       return fE;
     }
@@ -748,6 +757,7 @@ public class FacturaElectronica implements FacturableE,Instalable{
         tra.guardarRegistro("CREATE TABLE facturaelectronica (id int(11) NOT NULL,cae varchar (20),cae_vto varchar(8),fecha_cae varchar(20),afipqty varchar(4),afipplastid varchar(20),afipplastcbte varchar(10),idfactura int(11) not null,idcliente int(11) not null,estado int(11) not null default '0',customerid varchar (11),customertypedoc varchar(2),tipo_comprobante varchar(1),importe_total varchar(30),importe_neto varchar(25),impto_liq varchar(25),fecha timestamp not null default current_timestamp)ENGINE=InnoDB DEFAULT CHARSET=utf8"); //(idcliente,total,tipo,idusuario,idpedido,idremito,numerofactura,estado,saldo,subtotal,descuento,porcentajeD)
         tra.guardarRegistro("ALTER TABLE facturaelectronica ADD PRIMARY KEY (id)");
         tra.guardarRegistro("ALTER TABLE facturaelectronica MODIFY id int(11) NOT NULL AUTO_INCREMENT");
+        tra.guardarRegistro("alter table facturaelectronica modify tipo_comprobante varchar(2)");
         
         
         //String sql="insert into facturaelectronica (cae,cae_vto,fecha_cae,afipqty,afipplastid,afipplastcbte,idfactura,idcliente,estado,customerid,customertypedoc,tipo_comprobante,importe_total,importe_neto,impto_liq) values ('"+ffE.getCae()+"','"+ffE.getCaeVto()+"','"+ffE.getFechaCae()+"','"+ffE.getAfipQty()+"','"+ffE.getAfipPlastId()+"','"+ffE.getAfipPlastCbte()+"',"+ffE.getIdFactura()+","+ffE.getIdCliente()+","+estado+",'"+ffE.getCustomerId()+"','"+ffE.getCustomerTypeDoc()+"','"+ffE.getTipoComprobante()+"','"+ffE.getImporteTotal()+"','"+ffE.getImporteNeto()+"','"+ffE.getImpuestoLiquido()+"')";

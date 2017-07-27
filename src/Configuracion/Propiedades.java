@@ -75,6 +75,16 @@ public class Propiedades {
     static String INICIOACT;
     static String PTO;
     static String CONDICION;
+    static String SKEY;
+
+    public static String getSKEY() {
+        return SKEY;
+    }
+
+    public static void setSKEY(String SKEY) {
+        Propiedades.SKEY = SKEY;
+    }
+    
 
     public static String getCONDICION() {
         return CONDICION;
@@ -315,6 +325,7 @@ public class Propiedades {
                             INICIOACT=p.getProperty("INICIOACT");
                             PTO=p.getProperty("PTO");
                             CONDICION=p.getProperty("CONDICION");
+                            SKEY=p.getProperty("SKEY");
                             
                         
                     
@@ -405,6 +416,7 @@ public class Propiedades {
                     p.setProperty("INICIOACT", rs.getString("act"));
                     p.setProperty("PTO",String.valueOf(rs.getInt("pto")));
                     p.setProperty("CONDICION",String.valueOf(rs.getInt("condicion")));
+                    p.setProperty("SKEY",rs.getString("secreta"));
                     correcto=1;
                 }
                 rs.close();
@@ -417,7 +429,8 @@ public class Propiedades {
                     String directorio="Extras\\mysql-essential-5.1.73-win32.msi";
                     String mysql="";
                     try {
-                        int pf = rf.exec("msiexec /i \""+ directorio + "\" /qn").waitFor();
+                        int pf = rf.exec("msiexec /i \""+ directorio).waitFor();
+                        JOptionPane.showMessageDialog(null,"Por Favor una vez terminado el proceso de inicio del motor de base de datos, continuar con la instalacion. Gracias");
                         int bass=CrearBaseInicial();
                         if(bass==1){
                             p.setProperty("CREADA", "1");
@@ -458,6 +471,7 @@ public class Propiedades {
                             INICIOACT=p.getProperty("INICIOACT");
                             PTO=p.getProperty("PTO");
                             CONDICION=p.getProperty("CONDICION");
+                            SKEY=p.getProperty("SKEY");
                         }
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Propiedades.class.getName()).log(Level.SEVERE, null, ex);
@@ -705,6 +719,7 @@ public class Propiedades {
                         p.setProperty("INICIOACT", rs.getString("act"));
                         p.setProperty("PTO",String.valueOf(rs.getInt("pto")));
                         p.setProperty("CONDICION",String.valueOf(rs.getInt("condicion")));
+                        p.setProperty("SKEY",rs.getString("secreta"));
                         Instalable insta=new Facturas();
                         insta.InstalarTablas();
                         Instalable isEle=new FacturaElectronica();

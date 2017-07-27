@@ -55,13 +55,14 @@ public class pdfsJavaGenerador {
     public void run(){
         Document documento=new Document();
         int i=1;
-        String arch="Facturas Electronicas\\"+doc.getIdCliente()+"_"+doc.getAfipPlastCbte()+"_factura.pdf";
+        String clienteF=doc.getAfipPlastCbte().replace(":","_");
+        String arch="Facturas Electronicas\\"+clienteF+"_factura.pdf";
         
         
         File fich=new File(arch);
         while(fich.exists()){
             i++;
-            arch="Facturas Electronicas\\"+doc.getIdCliente()+"_"+doc.getAfipPlastCbte()+i+"_factura.pdf";
+            arch="Facturas Electronicas\\"+clienteF+i+"_factura.pdf";
             fich=new File(arch);
         }
         FileOutputStream fichero;
@@ -100,7 +101,7 @@ public class pdfsJavaGenerador {
             //cb.showText("de Rivadeneira Enrique y Rivadeneira Jorge S.H.");
             bf = BaseFont.createFont(BaseFont.COURIER_BOLD,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,14);
-            cb.setTextMatrix(370,810);
+            cb.setTextMatrix(370,800);
             Integer comF=Integer.parseInt(doc.getTipoComprobante());
             
             String len=doc.getAfipPlastCbte();
@@ -138,18 +139,27 @@ public class pdfsJavaGenerador {
                 case 8:
                     cb.showText("NTA DE CREDITO B");
                     break;
+                case 11:
+                    cb.showText("FACTURA C");
+                    break;
+                case 12:
+                    cb.showText("NOTA DE DEBITO C");
+                    break;
+                case 13:
+                    cb.showText("NOTA DE CREDITO C");
+                    break;
             }
-            cb.setTextMatrix(370,790);
+            cb.setTextMatrix(370,780);
             cb.showText("N°: 00"+Propiedades.getPTO()+"-"+numero);
             bf = BaseFont.createFont(BaseFont.COURIER,BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
             cb.setFontAndSize(bf,8);
-            cb.setTextMatrix(370,770);
-            cb.showText("Fecha "+doc.getFechaCae());
             cb.setTextMatrix(370,760);
-            cb.showText("CUIT: "+Propiedades.getCUIT());
+            cb.showText("Fecha "+doc.getFechaCae());
             cb.setTextMatrix(370,750);
-            cb.showText("Ing. Brutos / Conv. Multilateral: "+Propiedades.getINGBRUTOS());
+            cb.showText("CUIT: "+Propiedades.getCUIT());
             cb.setTextMatrix(370,740);
+            cb.showText("Ing. Brutos: "+Propiedades.getINGBRUTOS());
+            cb.setTextMatrix(370,730);
             cb.showText("Inicio Activ.: "+Propiedades.getINICIOACT());
             //cb.setTextMatrix(380,740);
             //cb.showText("Fecha "+doc.getFechaCae());
@@ -279,7 +289,7 @@ public class pdfsJavaGenerador {
                 cb.setTextMatrix(500,renglon);
                 cb.showText(Numeros.ConvertirNumero(tot));
                 grav=grav + tot;
-                totalS=totalS + (tot * 1.21);
+                totalS=totalS + (tot);
                 //cb.setTextMatrix(440,renglon);
                 
                 //cb.showText(Numeros.ConvertirNumero(tot));
@@ -288,9 +298,9 @@ public class pdfsJavaGenerador {
 
                     
                 }else{
-                    tot=tot * 1.21;
+                    //tot=tot * 1.21;
                 cb.setTextMatrix(370,renglon);
-                cb.showText(Numeros.ConvertirNumero(saldo.getPrecioUnitario() * 1.21));
+                cb.showText(Numeros.ConvertirNumero(saldo.getPrecioUnitario()));
                 cb.setTextMatrix(450,renglon);
                 if(saldo.getDescuento()!=null){
                     cb.showText(String.valueOf(saldo.getDescuento()));
@@ -301,7 +311,7 @@ public class pdfsJavaGenerador {
                 cb.setTextMatrix(500,renglon);
                 cb.showText(Numeros.ConvertirNumero(tot));
                 grav=grav + tot;
-                totalS=totalS + (tot * 1.21);
+                totalS=totalS + (tot);
                 //cb.setTextMatrix(440,renglon);
                 
                 //cb.showText(Numeros.ConvertirNumero(tot));
