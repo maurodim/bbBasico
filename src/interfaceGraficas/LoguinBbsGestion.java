@@ -21,6 +21,7 @@ public class LoguinBbsGestion extends javax.swing.JFrame {
      * Creates new form LoguinBbsGestion
      */
     public LoguinBbsGestion() {
+        
         initComponents();
     }
 

@@ -296,7 +296,6 @@ public class Inicio extends javax.swing.JFrame {
         jMenu1.add(jMenuItem21);
 
         jMenuItem24.setText("Blanquear Base");
-        jMenuItem24.setEnabled(false);
         jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem24ActionPerformed(evt);
