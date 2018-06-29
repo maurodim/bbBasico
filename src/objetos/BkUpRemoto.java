@@ -3,17 +3,11 @@ package objetos;
 //import org.apache.commons
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
+
 
 
 
@@ -27,7 +21,9 @@ import org.apache.commons.net.ftp.FTPReply;
 public class BkUpRemoto {
  
     public void subir(String fileName, String source ) throws MalformedURLException, IOException {
-      FTPClient ftpClient = new FTPClient();
+      
+        /*
+        FTPClient ftpClient = new FTPClient();
             ftpClient.connect(InetAddress.getByName("ftp.bambusoft.com.ar"));
             ftpClient.login("sistemas@bambusoft.com.ar","g_)M7]%AO}[9");
             
@@ -63,6 +59,9 @@ public class BkUpRemoto {
             buffIn.close(); //Cerrar envio de arcivos al FTP
             ftpClient.logout(); //Cerrar sesión
             ftpClient.disconnect();//Desconectarse del servidor
+            
+            
+            */
    }
  
    // public Boolean subirArchivo(){
